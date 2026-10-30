@@ -52,12 +52,7 @@ h1.wm img{height:clamp(56px,15vw,120px);width:auto;filter:drop-shadow(4px 5px 0 
 .logo{flex-wrap:wrap}
 @font-face{font-family:'Mister Brush';src:url(fonts/MisterBrush.woff2?v=2) format('woff2');font-display:swap}
 h1.wm{position:relative;display:block;white-space:nowrap;font-family:'Mister Brush','Permanent Marker',cursive;font-weight:400;font-size:clamp(1.8rem,13vw,7rem);line-height:1;letter-spacing:.02em;padding:.1em .15em;margin:.2rem 0;transform:skewX(-9deg) rotate(-2deg);color:#fff;text-shadow:.06em .05em 0 #ff6a00,0 0 18px rgba(255,106,0,.35)}
-h1.wm:before,h1.wm:after{content:attr(data-t);position:absolute;left:.15em;top:.1em;pointer-events:none;opacity:0;text-shadow:none}
-h1.wm:before{color:#ff6a00;clip-path:inset(10% 0 55% 0);animation:wg1 3.2s infinite steps(1)}
-h1.wm:after{color:#fff;clip-path:inset(58% 0 8% 0);animation:wg2 2.7s infinite steps(1)}
-@keyframes wg1{0%,84%{opacity:0;transform:none}86%{opacity:1;transform:translate(-.06em,0)}89%{transform:translate(.07em,.01em)}92%{transform:translate(-.03em,0)}95%,100%{opacity:0}}
-@keyframes wg2{0%,88%{opacity:0;transform:none}90%{opacity:1;transform:translate(.08em,0)}93%{transform:translate(-.06em,0)}96%,100%{opacity:0}}
-@media(prefers-reduced-motion:reduce){h1.wm:before,h1.wm:after{animation:none;opacity:0}}
+@media(prefers-reduced-motion:reduce){}
 h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fill-color:initial}
 .d1{width:.09em;height:.09em;left:-.05em;top:.05em}.d2{width:.07em;height:.07em;right:-.1em;top:.2em}.d3{width:.05em;height:.05em;left:45%;bottom:-.12em}.d4{width:.04em;height:.04em;right:.3em;bottom:-.05em}
 .apps{display:grid;gap:1.4rem}.app{display:grid;grid-template-columns:1fr;gap:1rem;border:2px solid var(--o);background:rgba(11,11,11,.85);padding:1.2rem;position:relative}
@@ -66,7 +61,7 @@ h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fil
 .note{font-size:.9rem;opacity:.8;border-left:3px solid var(--o);padding-left:.6rem}
 @media(min-width:760px){.app{grid-template-columns:240px 1fr;align-items:center}}
 .back{display:inline-block;margin:1.5rem 0 0;font-weight:800;text-decoration:none;color:var(--o)}
-</style></head><body><nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/" target="_blank" rel="noopener">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#links">Socials</a></nav>
+#embers{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none}.over>*{position:relative;z-index:2}.ht{z-index:2}.logo img{width:clamp(120px,34vw,230px)!important}</style></head><body><nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/" target="_blank" rel="noopener">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#links">Socials</a></nav>
 <main class="over" style="min-height:100vh"><section><h2>Apps</h2><div class="apps">
 <article class="app"><div class="pic"><img src="img/app-roger.webp?v=1" alt="Roger sitting with a speech bubble: If I faint, it's on your conscience."></div>
 <div><h3>Pet: Roger</h3><p>A desktop pet you can pet, feed and play with. Roger, the judgemental fox demon, roams around your screen and keeps his opinions to himself (he doesn't).</p>
@@ -77,4 +72,4 @@ h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fil
 <div><h3>Magic 8 Ball</h3><p>A magic 8 ball shaken by Nines. Ask the fox a question and she'll shake out your answer.</p>
 <a class="btn o" href="https://nines8ball.netlify.app/" target="_blank" rel="noopener">&#9654; Open</a><p class="note">Runs in your browser, on phone or desktop.</p></div></article>
 </div><a class="back" href="index.html">&larr; Back home</a></section>
-<footer><img src="img/mark.svg" alt="">&#10005; Kitsura Nines &#10005; Roger is watching &#10005;</footer></main></body></html>
+<footer><img src="img/mark.svg" alt="">&#10005; Kitsura Nines &#10005; Roger is watching &#10005;</footer></main><script src="js/embers.js?v=1" defer></script></body></html>
