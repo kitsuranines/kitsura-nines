@@ -59,6 +59,7 @@ h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fil
 .app .pic{display:flex;align-items:center;justify-content:center}.app .pic img{width:100%;max-width:240px;border:3px solid var(--w);box-shadow:6px 6px 0 var(--o)}.app .pic img.ball{border:0;box-shadow:none;max-width:200px;filter:drop-shadow(0 0 18px rgba(255,106,0,.45))}
 .app h3{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2rem;color:var(--w)}.app p{line-height:1.55;margin:.6rem 0}.app ul{margin:.4rem 0 .8rem 1.1rem;line-height:1.6}
 .note{font-size:.9rem;opacity:.8;border-left:3px solid var(--o);padding-left:.6rem}
+details.note summary{cursor:pointer;font-weight:700;color:var(--o)}details.note ol{margin:.5rem 0 0;padding-left:1.2rem}details.note li{margin:.3rem 0}
 @media(min-width:760px){.app{grid-template-columns:240px 1fr;align-items:center}}
 .back{display:inline-block;margin:1.5rem 0 0;font-weight:800;text-decoration:none;color:var(--o)}
 #embers{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none}.over>*{position:relative;z-index:2}.ht{z-index:2}.logo img{width:clamp(120px,34vw,230px)!important}</style></head><body><nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/" target="_blank" rel="noopener">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#links">Socials</a></nav>
@@ -70,6 +71,12 @@ h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fil
 <a class="btn o" href="https://github.com/kitsuranines/pet-roger/releases/latest/download/RogerPet-mac-arm64.zip">&#11015; Mac (Apple Silicon)</a>
 <a class="btn o" href="https://github.com/kitsuranines/pet-roger/releases/latest/download/RogerPet-mac-x64.zip">&#11015; Mac (Intel)</a>
 <p class="note">Windows (64-bit) and Mac &middot; about 85&ndash;100 MB. Windows: unzip, then run <b>RogerPet.exe</b>. Windows may show a SmartScreen warning because the app isn't signed: click "More info" then "Run anyway".</p>
+<details class="note"><summary>Windows blocked it?</summary><ol>
+<li>If your browser or Defender flags the download, choose <b>Keep</b> / <b>Keep anyway</b>.</li>
+<li>Right-click the zip &gt; <b>Properties</b> &gt; tick <b>Unblock</b> &gt; OK, then <b>Extract All</b>.</li>
+<li>"Windows protected your PC" (SmartScreen): click <b>More info</b> &gt; <b>Run anyway</b>.</li>
+<li>If Defender quarantines it: <b>Windows Security</b> &gt; Virus &amp; threat protection &gt; <b>Protection history</b> &gt; select the item &gt; Actions &gt; <b>Allow on device</b>. Optional: Manage settings &gt; Exclusions &gt; Add an exclusion &gt; Folder &gt; pick the RogerPet folder.</li>
+</ol></details>
 <p class="note">Mac builds are unsigned and untested. Apple Silicon: unzip, then in Terminal run <code>xattr -dr com.apple.quarantine RogerPet.app</code> then <code>codesign --force --deep --sign - RogerPet.app</code>. Intel: right-click the app &gt; Open.</p></div></article>
 <article class="app"><div class="pic"><img class="ball" src="img/app-8ball.svg?v=1" alt="Magic 8 ball"></div>
 <div><h3>Magic 8 Ball</h3><p>A magic 8 ball shaken by Nines. Ask the fox a question and she'll shake out your answer.</p>
