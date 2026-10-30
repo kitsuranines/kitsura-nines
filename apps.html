@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Apps · Kitsura Nines</title><meta name="description" content="Kitsura Nines, a marble fox VTuber who streams horror games.">
+<meta property="og:image" content="img/hero.webp?v=6"><meta name="theme-color" content="#0b0b0b">
+<link rel="icon" type="image/svg+xml" href="img/mark.svg"><link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Metal+Mania&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--o:#ff6a00;--b:#0b0b0b;--w:#f4f1ea}*{box-sizing:border-box;margin:0}
+body{background:var(--b);color:var(--w);font-family:'Exo 2',sans-serif;overflow-x:hidden;background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
+a{color:inherit}
+.hero{position:relative;min-height:calc(100svh - 52px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--b) 10%,rgba(11,11,11,.6) 45%,transparent 72%)}
+.ht{position:relative;z-index:2;padding:0 1.2rem 3.5rem}
+.logo{display:flex;align-items:center;gap:.8rem;margin:.8rem 0}
+.logo img{width:clamp(70px,20vw,130px);flex:none;filter:drop-shadow(0 0 10px rgba(255,106,0,.8));animation:flick 5s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.4}94%{opacity:1}96%{opacity:.6}}
+h1{font-family:'Metal Mania',cursive;font-weight:400;font-size:clamp(2.3rem,10.5vw,6rem);line-height:.95;color:#fff;transform:skewX(-8deg) rotate(-2deg);letter-spacing:.01em;text-shadow:3px 3px 0 var(--o),-1px -1px 0 #000,0 0 22px rgba(255,106,0,.7)}
+h1 span{display:block}h1 span{display:inline}h1 span+span{margin-left:.25em}@media(max-width:520px){h1 span{display:block}h1 span+span{margin-left:0}}
+.g{position:relative}.g:before{content:attr(data-t);position:absolute;left:0;top:0;color:#fff;clip-path:inset(40% 0 35% 0);animation:gl 2.8s infinite steps(1);opacity:0}
+@keyframes gl{0%,86%{opacity:0;transform:none}88%{opacity:1;transform:translate(-6px,0)}91%{transform:translate(6px,1px)}94%{transform:translate(-2px,0)}97%{opacity:0}}
+.tag{display:inline-block;background:var(--o);color:var(--b);font-weight:800;padding:.25rem .7rem;transform:rotate(-3deg);letter-spacing:.1em;font-size:.8rem}
+.sub{font-size:1.1rem;max-width:34ch;font-weight:600}.sub b{color:var(--o)}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.3rem}
+.btn{background:var(--w);color:var(--b);text-decoration:none;font-weight:800;padding:.85rem 1.3rem;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);text-transform:uppercase}.btn.o{background:var(--o)}
+section{position:relative;padding:4rem 1.2rem;max-width:1000px;margin:auto}
+h2{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2.4rem;color:var(--o);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}h2:before{content:"\2715";color:var(--w);font-size:1.4rem}
+.slash{height:28px;background:var(--o);transform:skewY(-3deg);margin:1rem -5vw;box-shadow:0 10px 0 var(--w)}
+.about p{font-size:1.1rem;line-height:1.6;margin-bottom:1rem;max-width:60ch;position:relative}
+.grid{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.card{border:2px solid var(--o);padding:1rem;background:rgba(255,106,0,.06)}.card h3{font-weight:800;text-transform:uppercase;letter-spacing:.08em}.card small{opacity:.7}
+.links a{display:flex;justify-content:space-between;text-decoration:none;font-weight:800;font-size:1.2rem;padding:1.1rem;border:2px solid var(--w);transition:.2s}
+.links a:hover,.links a:active{background:var(--o);color:var(--b);border-color:var(--o);transform:rotate(-1deg)}
+.splat{position:absolute;right:0;top:10px;width:130px;transform:rotate(6deg);filter:drop-shadow(3px 4px 0 rgba(255,106,0,.6));pointer-events:none}@media(max-width:600px){.splat{width:95px;top:2.6rem}}
+.note{margin-top:.8rem;opacity:.7}
+footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}footer img{width:48px;display:block;margin:0 auto .6rem}
+@media(min-width:800px){.hero{justify-content:center}.ht{padding:0 6vw;max-width:62%}.hero>img{object-position:center}.hero:after{background:linear-gradient(90deg,var(--b) 5%,rgba(11,11,11,.45) 45%,transparent 65%)}}
+@media(prefers-reduced-motion:reduce){.g:before,.logo img{animation:none}}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:.5rem;overflow-x:auto;padding:.6rem 1rem;background:rgba(11,11,11,.92);border-bottom:2px solid var(--o);-webkit-overflow-scrolling:touch}
+.nav a{flex:none;text-decoration:none;font-weight:800;font-size:.85rem;text-transform:uppercase;padding:.45rem .8rem;border:1.5px solid var(--w)}.nav a:first-child{background:var(--o);color:var(--b);border-color:var(--o)}
+.pages a{display:block;text-decoration:none;padding:1.2rem;background:var(--w);color:var(--b);font-weight:800;font-size:1.25rem;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);transition:.2s}.pages a small{display:block;font-weight:600;font-size:.85rem;opacity:.7}
+.pages a:hover,.pages a:active{background:var(--o);transform:rotate(-1deg)}
+.gh{font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--o);margin:1.4rem 0 .6rem;font-size:.95rem}.l{display:flex;align-items:center;gap:.6rem}.links svg{width:22px;height:22px;fill:currentColor}.bgimg{position:fixed!important;inset:0;width:100vw!important;height:100vh!important;height:100lvh!important;object-fit:cover;object-position:70% center!important;z-index:-2}
+.hero{overflow:visible}.hero:after{display:none}
+.ht{background:linear-gradient(0deg,rgba(11,11,11,.85),rgba(11,11,11,.35) 70%,transparent);padding-top:3rem}
+.over{position:relative;background:rgba(11,11,11,.86);background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+body{background:#0b0b0b}
+@media(min-width:800px){.ht{background:linear-gradient(90deg,rgba(11,11,11,.7),rgba(11,11,11,.3) 70%,transparent);padding:3rem 6vw}.bgimg{object-position:center!important}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+h1.wm{display:flex;flex-wrap:wrap;align-items:center;gap:.25em 4%;transform:rotate(-2deg);text-shadow:none;font-size:1rem;margin:0}
+h1.wm img{height:clamp(56px,15vw,120px);width:auto;filter:drop-shadow(4px 5px 0 #ff6a00) drop-shadow(0 0 14px rgba(255,106,0,.6))}
+.logo{flex-wrap:wrap}
+@font-face{font-family:'Mister Brush';src:url(fonts/MisterBrush.woff2?v=2) format('woff2');font-display:swap}
+h1.wm{position:relative;display:block;white-space:nowrap;font-family:'Mister Brush','Permanent Marker',cursive;font-weight:400;font-size:clamp(1.8rem,13vw,7rem);line-height:1;letter-spacing:.02em;padding:.1em .15em;margin:.2rem 0;transform:skewX(-9deg) rotate(-2deg);color:#fff;text-shadow:.06em .05em 0 #ff6a00,0 0 18px rgba(255,106,0,.35)}
+h1.wm:before,h1.wm:after{content:attr(data-t);position:absolute;left:.15em;top:.1em;pointer-events:none;opacity:0;text-shadow:none}
+h1.wm:before{color:#ff6a00;clip-path:inset(10% 0 55% 0);animation:wg1 3.2s infinite steps(1)}
+h1.wm:after{color:#fff;clip-path:inset(58% 0 8% 0);animation:wg2 2.7s infinite steps(1)}
+@keyframes wg1{0%,84%{opacity:0;transform:none}86%{opacity:1;transform:translate(-.06em,0)}89%{transform:translate(.07em,.01em)}92%{transform:translate(-.03em,0)}95%,100%{opacity:0}}
+@keyframes wg2{0%,88%{opacity:0;transform:none}90%{opacity:1;transform:translate(.08em,0)}93%{transform:translate(-.06em,0)}96%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){h1.wm:before,h1.wm:after{animation:none;opacity:0}}
+h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fill-color:initial}
+.d1{width:.09em;height:.09em;left:-.05em;top:.05em}.d2{width:.07em;height:.07em;right:-.1em;top:.2em}.d3{width:.05em;height:.05em;left:45%;bottom:-.12em}.d4{width:.04em;height:.04em;right:.3em;bottom:-.05em}
+.apps{display:grid;gap:1.4rem}.app{display:grid;grid-template-columns:1fr;gap:1rem;border:2px solid var(--o);background:rgba(11,11,11,.85);padding:1.2rem;position:relative}
+.app .pic{display:flex;align-items:center;justify-content:center}.app .pic img{width:100%;max-width:240px;border:3px solid var(--w);box-shadow:6px 6px 0 var(--o)}.app .pic img.ball{border:0;box-shadow:none;max-width:200px;filter:drop-shadow(0 0 18px rgba(255,106,0,.45))}
+.app h3{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2rem;color:var(--w)}.app p{line-height:1.55;margin:.6rem 0}.app ul{margin:.4rem 0 .8rem 1.1rem;line-height:1.6}
+.note{font-size:.9rem;opacity:.8;border-left:3px solid var(--o);padding-left:.6rem}
+@media(min-width:760px){.app{grid-template-columns:240px 1fr;align-items:center}}
+.back{display:inline-block;margin:1.5rem 0 0;font-weight:800;text-decoration:none;color:var(--o)}
+</style></head><body><nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/" target="_blank" rel="noopener">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#links">Socials</a></nav>
+<main class="over" style="min-height:100vh"><section><h2>Apps</h2><div class="apps">
+<article class="app"><div class="pic"><img src="img/app-roger.webp?v=1" alt="Roger sitting with a speech bubble: If I faint, it's on your conscience."></div>
+<div><h3>Pet: Roger</h3><p>A desktop pet you can pet, feed and play with. Roger, the judgemental fox demon, roams around your screen and keeps his opinions to himself (he doesn't).</p>
+<ul><li>Feed him cheese, steak, candy corn or a mysterious heart</li><li>Pet him, brush his fur, toss him a ball to chase</li><li>Put him to sleep, let him sit or wander, check his stats</li><li>Drag him around; double-click for a quick pat. Right-click for the menu</li></ul>
+<a class="btn o" href="https://github.com/kitsuranines/pet-roger/releases/download/v0.1.0/RogerPet-win32-x64.zip">&#11015; Download for Windows</a>
+<p class="note">Windows only (64-bit). Unzip, then run <b>RogerPet.exe</b>. Windows may show a SmartScreen warning because the app isn't signed: click "More info" then "Run anyway". About 95 MB.</p></div></article>
+<article class="app"><div class="pic"><img class="ball" src="img/app-8ball.svg?v=1" alt="Magic 8 ball"></div>
+<div><h3>Magic 8 Ball</h3><p>A magic 8 ball shaken by Nines. Ask the fox a question and she'll shake out your answer.</p>
+<a class="btn o" href="https://nines8ball.netlify.app/" target="_blank" rel="noopener">&#9654; Open</a><p class="note">Runs in your browser, on phone or desktop.</p></div></article>
+</div><a class="back" href="index.html">&larr; Back home</a></section>
+<footer><img src="img/mark.svg" alt="">&#10005; Kitsura Nines &#10005; Roger is watching &#10005;</footer></main></body></html>
