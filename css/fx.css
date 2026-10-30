@@ -20,5 +20,5 @@ a,button,.btn,summary,[role=button],.roger-peek{cursor:url(../img/paw-o.png) 16 
 .roger-bub{position:absolute;bottom:100%;right:30%;margin-bottom:6px;background:#f4f1ea;color:#0b0b0b;font:800 .9rem 'Exo 2',sans-serif;padding:.5rem .7rem;border:2px solid #0b0b0b;box-shadow:3px 3px 0 #ff6a00;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
 .roger-peek.side .roger-bub{transform:rotate(90deg);transform-origin:bottom right}
 .roger-bub.show{opacity:1}
-@media(max-width:600px){.roger-peek{width:64px}}
+@media(max-width:600px){.roger-peek{width:64px}}@media(min-width:768px){.roger-peek{width:clamp(105px,13.5vw,180px)}}
 @media(prefers-reduced-motion:reduce){.vhs{animation:none}.logo img,footer img{animation:none!important}.btn:hover,.nav a:hover,.pages a:hover,.links a:hover,.cam:hover,.back:hover{animation:none}.roger-peek{display:none}}
