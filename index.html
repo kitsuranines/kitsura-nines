@@ -50,8 +50,14 @@ body{background:#0b0b0b}
 h1.wm{display:flex;flex-wrap:wrap;align-items:center;gap:.25em 4%;transform:rotate(-2deg);text-shadow:none;font-size:1rem;margin:0}
 h1.wm img{height:clamp(56px,15vw,120px);width:auto;filter:drop-shadow(4px 5px 0 #ff6a00) drop-shadow(0 0 14px rgba(255,106,0,.6))}
 .logo{flex-wrap:wrap}
-@font-face{font-family:'Mister Brush';src:url(fonts/MisterBrush.woff2?v=1) format('woff2');font-display:swap}
-h1.wm{position:relative;display:block;white-space:nowrap;font-family:'Mister Brush','Permanent Marker',cursive;font-weight:400;font-size:clamp(1.8rem,13vw,7rem);line-height:1;letter-spacing:.02em;padding:.1em .15em;margin:.2rem 0;transform:skewX(-9deg) rotate(-2deg);color:#ff5a00;background:linear-gradient(180deg,#ff1e00 0%,#ff4a00 45%,#ff8a00 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px rgba(255,80,0,.35))}
+@font-face{font-family:'Mister Brush';src:url(fonts/MisterBrush.woff2?v=2) format('woff2');font-display:swap}
+h1.wm{position:relative;display:block;white-space:nowrap;font-family:'Mister Brush','Permanent Marker',cursive;font-weight:400;font-size:clamp(1.8rem,13vw,7rem);line-height:1;letter-spacing:.02em;padding:.1em .15em;margin:.2rem 0;transform:skewX(-9deg) rotate(-2deg);color:#fff;text-shadow:.06em .05em 0 #ff6a00,0 0 18px rgba(255,106,0,.35)}
+h1.wm:before,h1.wm:after{content:attr(data-t);position:absolute;left:.15em;top:.1em;pointer-events:none;opacity:0;text-shadow:none}
+h1.wm:before{color:#ff6a00;clip-path:inset(10% 0 55% 0);animation:wg1 3.2s infinite steps(1)}
+h1.wm:after{color:#fff;clip-path:inset(58% 0 8% 0);animation:wg2 2.7s infinite steps(1)}
+@keyframes wg1{0%,84%{opacity:0;transform:none}86%{opacity:1;transform:translate(-.06em,0)}89%{transform:translate(.07em,.01em)}92%{transform:translate(-.03em,0)}95%,100%{opacity:0}}
+@keyframes wg2{0%,88%{opacity:0;transform:none}90%{opacity:1;transform:translate(.08em,0)}93%{transform:translate(-.06em,0)}96%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){h1.wm:before,h1.wm:after{animation:none;opacity:0}}
 h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fill-color:initial}
 .d1{width:.09em;height:.09em;left:-.05em;top:.05em}.d2{width:.07em;height:.07em;right:-.1em;top:.2em}.d3{width:.05em;height:.05em;left:45%;bottom:-.12em}.d4{width:.04em;height:.04em;right:.3em;bottom:-.05em}
 </style></head><body>
@@ -59,7 +65,7 @@ h1.wm .d{position:absolute;border-radius:50%;background:#ff3200;-webkit-text-fil
 <nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/" target="_blank" rel="noopener">Ref Sheets / Lore</a><a href="https://nines8ball.netlify.app/" target="_blank" rel="noopener">8 Ball App</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="#links">Socials</a></nav>
 <header class="hero"><img class="bgimg" src="img/hero.webp?v=6" alt="Kitsura Nines playing a game with Roger on her shoulder">
 <div class="ht"><span class="tag">&#9819; HORROR VTUBER &#9819;</span>
-<div class="logo"><img src="img/mark.svg" alt="Kitsura Nines logo"><h1 class="wm">KITSURA NINES<i class="d d1"></i><i class="d d2"></i><i class="d d3"></i><i class="d d4"></i></h1></div>
+<div class="logo"><img src="img/mark.svg" alt="Kitsura Nines logo"><h1 class="wm" data-t="KITSURA NINES">KITSURA NINES<i class="d d1"></i><i class="d d2"></i><i class="d d3"></i><i class="d d4"></i></h1></div>
 <p class="sub">Marble fox. Bad decisions in dark hallways. <b>Screaming so you don't have to.</b></p>
 <div class="btns"><a class="btn o" href="https://www.twitch.tv/kitsuranines" target="_blank" rel="noopener">&#9654; Watch live</a><a class="btn" href="#pages">Explore</a></div></div></header><main class="over">
 <div class="slash"></div>
