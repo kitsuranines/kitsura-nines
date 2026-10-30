@@ -8,7 +8,7 @@
 :root{--o:#ff6a00;--b:#0b0b0b;--w:#f4f1ea}*{box-sizing:border-box;margin:0}
 body{background:var(--b);color:var(--w);font-family:'Exo 2',sans-serif;overflow-x:hidden;background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
 a{color:inherit}
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero{position:relative;min-height:calc(100svh - 52px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--b) 10%,rgba(11,11,11,.6) 45%,transparent 72%)}
 .ht{position:relative;z-index:2;padding:0 1.2rem 3.5rem}
@@ -36,13 +36,22 @@ h2{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2.4rem;color
 footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}footer img{width:48px;display:block;margin:0 auto .6rem}
 @media(min-width:800px){.hero{justify-content:center}.ht{padding:0 6vw;max-width:62%}.hero>img{object-position:center}.hero:after{background:linear-gradient(90deg,var(--b) 5%,rgba(11,11,11,.45) 45%,transparent 65%)}}
 @media(prefers-reduced-motion:reduce){.g:before,.logo img{animation:none}}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:.5rem;overflow-x:auto;padding:.6rem 1rem;background:rgba(11,11,11,.92);border-bottom:2px solid var(--o);-webkit-overflow-scrolling:touch}
+.nav a{flex:none;text-decoration:none;font-weight:800;font-size:.85rem;text-transform:uppercase;padding:.45rem .8rem;border:1.5px solid var(--w)}.nav a:first-child{background:var(--o);color:var(--b);border-color:var(--o)}
+.pages a{display:block;text-decoration:none;padding:1.2rem;background:var(--w);color:var(--b);font-weight:800;font-size:1.25rem;clip-path:polygon(3% 0,100% 0,97% 100%,0 100%);transition:.2s}.pages a small{display:block;font-weight:600;font-size:.85rem;opacity:.7}
+.pages a:hover,.pages a:active{background:var(--o);transform:rotate(-1deg)}
 </style></head><body>
+<!-- EDIT PAGE LINKS: change label + href -->
+<nav class="nav"><a href="https://kitsuranines.github.io/static-hollow/">Static Hollow</a><a href="#">Page 2</a><a href="#">Page 3</a><a href="#">Page 4</a><a href="#links">Socials</a></nav>
 <header class="hero"><img src="img/hero.webp" alt="Kitsura Nines holding a controller with Roger on her shoulder">
 <div class="ht"><span class="tag">&#9819; HORROR VTUBER &#9819;</span>
 <div class="logo"><img src="img/mark.svg" alt="Kitsura Nines logo"><h1><span class="g" data-t="KITSURA">KITSURA</span><span class="g" data-t="NINES">NINES</span></h1></div>
 <p class="sub">Marble fox. Bad decisions in dark hallways. <b>Screaming so you don't have to.</b></p>
-<div class="btns"><a class="btn o" href="#">&#9654; Watch live</a><a class="btn" href="#links">Find me</a></div></div></header>
+<div class="btns"><a class="btn o" href="#">&#9654; Watch live</a><a class="btn" href="#pages">Explore</a></div></div></header>
 <div class="slash"></div>
+<section id="pages" class="pages"><h2>Explore</h2><div class="grid">
+<a href="https://kitsuranines.github.io/static-hollow/">Static Hollow <small>Character directory</small></a>
+<a href="#">Page 2 <small>Placeholder</small></a><a href="#">Page 3 <small>Placeholder</small></a><a href="#">Page 4 <small>Placeholder</small></a></div></section>
 <section class="about"><svg class="splat" viewBox="0 0 100 100" aria-hidden="true"><path fill="#ff6a00" d="M50 10c8 12 25 2 28 15s16 14 6 25 4 26-12 26-20 16-30 4-28-6-24-20S8 40 22 30 40 0 50 10z"/><circle cx="92" cy="12" r="5" fill="#ff6a00"/><circle cx="6" cy="88" r="4" fill="#ff6a00"/></svg>
 <h2>About</h2><p>Hey, I'm <b>Kitsura Nines</b>, a marble fox VTuber who mostly streams horror games. Jump scares, creepy lore and a lot of yelling.</p>
 <p>My little shadow <b>Roger</b> is always around. He's a fluffy fox with a third eye, and he sees everything.</p></section>
