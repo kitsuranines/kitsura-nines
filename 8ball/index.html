@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>Kitsura Nines' Magic 8 Ball</title>
+<meta name="description" content="Ask Kitsura Nines a yes/no question and let the Magic 8 Ball decide. Runs in your browser."><link rel="canonical" href="https://kitsuranines.com/8ball/"><link rel="icon" href="favicon.ico"><meta property="og:type" content="website"><meta property="og:url" content="https://kitsuranines.com/8ball/"><meta property="og:title" content="Kitsura Nines' Magic 8 Ball"><meta property="og:description" content="Ask Kitsura Nines a yes/no question and let the Magic 8 Ball decide. Runs in your browser."><meta property="og:image" content="https://kitsuranines.com/img/app-8ball.webp?v=1"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@KitsuraNines"><meta name="twitter:title" content="Kitsura Nines' Magic 8 Ball"><meta name="twitter:description" content="Ask Kitsura Nines a yes/no question and let the Magic 8 Ball decide. Runs in your browser."><meta name="twitter:image" content="https://kitsuranines.com/img/app-8ball.webp?v=1"><link rel="stylesheet" href="style.css"></head><body>
+<div id="bg">
+ <div class="blk tl"></div><div class="blk br"></div><div class="blk bl"></div><div class="blk tr"></div>
+ <span class="x o" style="left:12%;top:14%">✕</span><span class="x k" style="left:8%;top:40%">✕</span>
+ <span class="x g" style="right:10%;top:22%">✕</span><span class="x o" style="right:7%;top:52%">✕</span>
+ <span class="x g" style="left:20%;top:70%">✕</span>
+ <i class="dia" style="left:14%;top:56%"></i><i class="dia" style="right:16%;top:10%"></i><i class="dia" style="right:20%;bottom:18%"></i>
+ <i class="dots" style="left:4%;top:5%"></i><i class="dots" style="right:4%;top:12%"></i><i class="dots" style="left:3%;bottom:16%"></i>
+ <span class="skull w" style="right:5%;bottom:5%">☠</span><span class="skull b" style="left:5%;bottom:5%">☠</span>
+</div>
+<div id="cover"><h1>KITSURA<br><span>NINES'</span></h1><h2>magic 8 ball</h2><button id="start">ask the fox ✕</button></div>
+<main id="stage">
+ <div id="char"><img id="frame" src="frames/1_idle.png" alt="Kitsura Nines">
+  <div id="answer"><span></span></div></div>
+ <div id="bubble"></div>
+ <form id="bar"><input id="q" placeholder="ask nines a yes/no question..." maxlength="120" autocomplete="off"><button id="shake">SHAKE</button></form>
+</main>
+<script src="app.js"></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
