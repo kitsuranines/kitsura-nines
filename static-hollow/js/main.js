@@ -10,7 +10,7 @@ if(cg){const q=document.getElementById('q'),cnt=document.getElementById('count')
 const d=document.getElementById('detail');
 if(d){const list=C,id=new URLSearchParams(location.search).get('id'),i=Math.max(0,list.findIndex(x=>x.id===id)),x=list[i];
  if(!x){d.innerHTML='<p class="center">Nothing found in the static.</p>';return;}
- document.title=x.name+' — Static Hollow';
+ document.title=x.name+' — Static Hollow';{const U='https://kitsuranines.com/static-hollow/character.html?id='+encodeURIComponent(x.id),D=(x.name+(x.title?', '+x.title:'')+(x.species?' ('+x.species+')':'')+': a member of the Static Hollow, the universe of Kitsura Nines.'),m=(k,v,a)=>{let el=document.head.querySelector(`meta[${a}="${k}"]`);if(!el){el=document.createElement('meta');el.setAttribute(a,k);document.head.appendChild(el)}el.content=v};const c=document.head.querySelector('link[rel=canonical]');if(c)c.href=U;m('description',D,'name');m('og:title',document.title,'property');m('og:description',D,'property');m('og:url',U,'property');m('twitter:title',document.title,'name');m('twitter:description',D,'name');}
  const base='character.html?id=',prev=list[(i-1+list.length)%list.length],next=list[(i+1)%list.length];
  const ps=a=>(a||[]).filter(Boolean).map(p=>`<p>${e(p)}</p>`).join('');
  d.innerHTML=`<section class="panel intro"><div class="gl" id="mainimg"><img src="${e(x.image)}" alt="${e(x.name)}" data-full="${e(x.image)}"></div>
