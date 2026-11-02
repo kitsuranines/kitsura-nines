@@ -7,7 +7,7 @@ hype:{n:'Hype Creature',t:"LET'S GOOOOO (in all caps, always).",d:'You spam the 
 lore:{n:'Lore Creature',t:'Knows more Static Hollow lore than Nines does.',d:'You\'ve read every character page, have three theories about Roger, and quietly correct the wiki. Ancient, mysterious, slightly dusty. Nines asks YOU what happened in her own lore.'},
 backseat:{n:'Backseat Creature',t:"You're going the wrong way. No, the OTHER wrong way.",d:'You know exactly where the key is, which door to take, and why Nines is wrong. You are always right. You are frequently ignored. You will type it again anyway.'},
 emote:{n:'Emote Creature',t:'Communicates exclusively in emotes.',d:"Words? Never heard of them. Your chat messages are 40 emotes and a keyboard smash, and somehow everyone understands you perfectly. Fluent in skull, fire, and crying-laughing."},
-roger:{n:'Roger Simp Creature',t:'Here for Nines. Stayed for the fox.',d:"Be honest, you'd follow Roger into the void. Grumpy little guys are your type, and you have a Roger fanart folder to prove it. He hates being petted. You pet him anyway."},
+roger:{n:'Roger Simp Creature',t:'Here for Nines. Stayed for the rude fluffball.',d:"Be honest, you'd follow Roger into the void. Grumpy little guys are your type, and you have a Roger fanart folder to prove it. He hates being petted. You pet him anyway."},
 sleepy:{n:'Sleepy Creature',t:'Falls asleep to stream. Every. Single. Night.',d:"Nines' voice is your nightlight. You tuck in, hit play, and you're out before the first jumpscare. Somehow you still count as a viewer, and Nines appreciates the dedication."}};
 // each answer: [text, primary, secondary]  (+2 / +1)
 const QS=[
