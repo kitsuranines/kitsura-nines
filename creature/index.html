@@ -94,8 +94,8 @@ function ask(){const q=QS[qi];$('bar').style.width=(qi/QS.length*100)+'%';$('qn'
 function start(){qi=0;sc={};K.forEach(k=>sc[k]=0);history.replaceState(null,'','creature/');show('quiz');ask();scrollTo(0,0)}
 function finish(){const m=Math.max(...K.map(k=>sc[k])),t=K.filter(k=>sc[k]==m),r=t[Math.random()*t.length|0];history.replaceState(null,'','creature/?r='+r);result(r,true);if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'creature/result/'+r,title:TYPES[r].n,event:true})}
 function result(r,mine){const T=TYPES[r];$('you').textContent=mine?'You are the':'Someone got the';$('ri').src='creature/img/'+r+'.webp?v=7';$('ri').alt=T.n;$('rn').textContent=T.n;$('rt').textContent=T.t;$('rd').textContent=T.d;
- const txt=`I'm a ${T.n}! "${T.t}" Which dubious creature are you? Take @kitsuranines' quiz 🦊`;
- $('share').href='https://x.com/intent/post?text='+encodeURIComponent(txt)+'&url='+encodeURIComponent('https://kitsuranines.com/creature/?r='+r);
+ const txt=`I'm ${/^[AEIOU]/.test(T.n)?'an':'a'} ${T.n}! "${T.t}" Which dubious creature are you? Take @kitsuranines' quiz 🦊`;
+ $('share').href='https://x.com/intent/post?text='+encodeURIComponent(txt)+'&url='+encodeURIComponent('https://kitsuranines.com/creature/r/'+r+'/');
  $('again').textContent=mine?'Retake':'Take the quiz';show('result');scrollTo(0,0)}
 $('go').onclick=start;$('again').onclick=start;
 const r=new URLSearchParams(location.search).get('r');if(r&&TYPES[r])result(r,false);
