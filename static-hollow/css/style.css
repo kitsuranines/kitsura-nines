@@ -92,3 +92,5 @@ body[data-page=home] main{padding-top:0}
 @keyframes scj{0%{-webkit-transform:translate(1px,0);transform:translate(1px,0)}50%{-webkit-transform:translate(-2px,1px);transform:translate(-2px,1px)}100%{-webkit-transform:translate(0,-1px);transform:translate(0,-1px)}}
 .note.scr .scr-ov{left:.8rem}
 .scr-ov b:not(.o){color:var(--o)}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;align-items:start}.pager>a:first-child{justify-self:start}.pager>a:last-child{justify-self:end}.pg-mid{display:flex;flex-direction:column;align-items:center;gap:.6rem;grid-column:2}
+@media(max-width:600px){.pager{grid-template-columns:1fr 1fr}.pg-mid{grid-column:1/-1;grid-row:2;justify-self:center}}
