@@ -20,7 +20,7 @@ if(d){const list=C,id=new URLSearchParams(location.search).get('id'),i=Math.max(
  ${(x.links||[]).length?`<div class="links">${x.links.map(l=>`<a class="btn" href="${e(l.url)}" target="_blank" rel="noopener">${e(l.label)}</a>`).join('')}</div>`:''}</div></section>
  ${(x.lore||[]).filter(Boolean).length?`<section class="panel lore"><h2>LORE</h2>${ps(x.lore)}</section>`:''}
  <section class="panel"><h2>REFERENCE IMAGES</h2><div class="gallery">${(x.references||[]).map(g=>`<img src="${e(g)}" data-full="${e(g)}" alt="${e(x.name)} reference" loading="lazy">`).join('')}${Array.from({length:Math.max(0,3-(x.references||[]).length)},()=>'<div class="slot">Reference slot<br><small>add to data/characters.js</small></div>').join('')}</div></section>
- <nav class="pager"><a class="btn" href="${base+prev.id}">← ${e(prev.name)}</a><a class="btn" href="index.html">Home</a><a class="btn" href="${base+next.id}">${e(next.name)} →</a></nav>`;}
+ <nav class="pager"><a class="btn" href="${base+prev.id}">← ${e(prev.name)}</a><span class="pg-mid"><a class="btn" href="index.html">Back to the Hollow</a><a class="btn" href="/">Back to main page</a></span><a class="btn" href="${base+next.id}">${e(next.name)} →</a></nav>`;}
 const lb=document.getElementById('lb');if(lb){const im=lb.querySelector('img'),close=()=>lb.hidden=true;
  document.addEventListener('click',ev=>{const t=ev.target.closest('[data-full]');if(t){im.src=t.dataset.full;im.alt=t.alt;lb.hidden=false;}else if(!lb.hidden&&ev.target!==im)close();});
  document.addEventListener('keydown',ev=>{if(ev.key==='Escape')close();});}
