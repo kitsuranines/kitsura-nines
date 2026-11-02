@@ -1,0 +1,31 @@
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;font-family:"Trebuchet MS",system-ui,sans-serif}
+body{background:#f4ecdc}body.transparent{background:transparent}body.transparent #bg{display:none}
+#bg{position:fixed;inset:0;overflow:hidden}
+.blk{position:absolute;width:60vmax;height:60vmax;transform:rotate(45deg)}
+.tl{background:#111;left:-42vmax;top:-42vmax}.br{background:#111;right:-42vmax;bottom:-42vmax}
+.bl{background:#f28a1e;left:-46vmax;bottom:-40vmax}.tr{background:#f28a1e;right:-46vmax;top:-40vmax}
+.x{position:absolute;font-size:9vmin;font-weight:900;line-height:1}.x.o{color:#f28a1e}.x.k{color:#111}.x.g{color:#9a958c}
+.dia{position:absolute;width:7vmin;height:7vmin;background:#b8b0a3;transform:rotate(45deg)}
+.dots{position:absolute;width:14vmin;height:10vmin;background:radial-gradient(#111 30%,transparent 32%) 0 0/1.6vmin 1.6vmin}
+.skull{position:absolute;font-size:12vmin}.skull.w{color:#fff;text-shadow:0 0 2px #000}.skull.b{color:#111}
+#cover{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(17,17,17,.88);color:#f4ecdc;transition:opacity .5s}
+#cover h1{margin:0;font-size:12vmin;line-height:.9;text-align:center;letter-spacing:.05em}#cover h1 span{color:#f28a1e}
+#cover h2{margin:.3em 0 1em;font-size:5vmin;font-weight:400;letter-spacing:.3em}
+#cover.hide{opacity:0;pointer-events:none}
+button{font:inherit;font-weight:900;cursor:pointer;border:3px solid #111;background:#f28a1e;color:#111;padding:.6em 1.4em;font-size:1.2rem;box-shadow:4px 4px 0 #111}
+button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #111}button:disabled{opacity:.5}
+#stage{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+#char{position:relative;transform:translateX(1.6%);height:calc(100% - 90px);aspect-ratio:3/4;max-width:100%;max-height:calc((100vw)*4/3)}
+#frame{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+/* triangle window in reveal frame: approx x 298-450, y 488-618 of 768x1024 */
+#answer{position:absolute;left:39.1%;width:18.8%;top:48%;height:12%;display:flex;align-items:center;justify-content:center;text-align:center;opacity:0;pointer-events:none}
+#answer span{color:#cfe6ff;font-weight:900;font-size:clamp(7px,min(1.55vh,2.3vw),20px);line-height:1.05;text-transform:uppercase;text-shadow:0 0 6px #6cf;max-width:72%;margin-top:22%;display:block;text-align:center;margin-left:auto;margin-right:auto}
+#answer.show{animation:fade 1.1s ease forwards}
+@keyframes fade{0%{opacity:0;filter:blur(4px)}100%{opacity:1;filter:none}}
+#bubble{position:absolute;top:3%;left:0;right:0;margin:0 auto;width:fit-content;background:#111;color:#f4ecdc;padding:.5em 1em;border:3px solid #f28a1e;font-weight:700;max-width:80%;text-align:center;opacity:0;transition:opacity .3s}
+#bubble.on{opacity:1}
+#bar{display:flex;gap:10px;width:min(640px,94%);margin:14px 0 20px;z-index:2}
+#q{flex:1;font:inherit;font-size:1.1rem;padding:.6em .9em;border:3px solid #111;background:#fff;box-shadow:4px 4px 0 #111;outline:none}
+body.obs #bar{opacity:.0}body.obs #bar:hover,body.obs #bar:focus-within{opacity:1}
+.quake{animation:quake .08s infinite}
+@keyframes quake{0%{transform:translate(4px,-3px) rotate(.6deg)}50%{transform:translate(-5px,4px) rotate(-.6deg)}100%{transform:translate(3px,2px)}}
