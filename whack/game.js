@@ -7,7 +7,7 @@ var $=function(i){return document.getElementById(i)};
 var board=$("board"),holes=[];
 for(var i=0;i<9;i++){var h=document.createElement("div");h.className="hole";var m=document.createElement("div");m.className="mob";var im=document.createElement("img");im.alt="";im.draggable=false;m.appendChild(im);var l=document.createElement("div");l.className="lip";h.appendChild(m);h.appendChild(l);board.appendChild(h);
  holes.push({el:h,mob:m,img:im,kind:null,until:0,hit:false});}
-CRE.concat(["roger"]).forEach(function(c){var p=new Image();p.src=c==="roger"?"img/roger-peek.webp?v=1":"creature/img/"+c+".webp?v=7";});
+CRE.concat(["roger"]).forEach(function(c){var p=new Image();p.src=c==="roger"?"img/roger-whack.webp?v=2":"creature/img/"+c+".webp?v=7";});
 var best=+(localStorage.getItem("kn-whack-best")||0);$("best").textContent=best;
 var muted=localStorage.getItem("kn-whack-mute")==="1";
 function setMute(){$("mute").innerHTML=muted?"&#128263; Sound off":"&#128264; Sound on";$("mute").setAttribute("aria-pressed",muted)}setMute();
@@ -30,7 +30,7 @@ function spawn(){var free=holes.filter(function(h){return !h.kind});var up=9-fre
  var h=free[Math.floor(Math.random()*free.length)],r=Math.random(),kind;
  if(hits>=3&&r<rogerP())kind="roger";else if(r>.94)kind="gold";else kind="cre";
  spawns++;window.__whack={spawns:spawns,up:Math.round(upTime()),gap:Math.round(gap()),max:maxUp(),roger:rogerP()};h.kind=kind;h.hit=false;h.until=gt+upTime()*(kind==="roger"?1.15:1);
- h.img.src=kind==="roger"?"img/roger-peek.webp?v=1":"creature/img/"+CRE[Math.floor(Math.random()*CRE.length)]+".webp?v=7";
+ h.img.src=kind==="roger"?"img/roger-whack.webp?v=2":"creature/img/"+CRE[Math.floor(Math.random()*CRE.length)]+".webp?v=7";
  h.mob.className="mob"+(kind==="gold"?" gold":kind==="roger"?" rog":"");h.el.dataset.kind=kind;h.el.classList.add("up");}
 function hide(h){h.kind=null;h.el.classList.remove("up");delete h.el.dataset.kind}
 function loop(ts){raf=requestAnimationFrame(loop);if(!running||paused){last=ts;return}

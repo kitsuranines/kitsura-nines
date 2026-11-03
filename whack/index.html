@@ -82,7 +82,7 @@ html.playing,html.playing body{overflow:hidden;height:100%;overscroll-behavior:n
 .mob img{width:100%;height:100%;object-fit:contain;object-position:bottom;display:block;pointer-events:none;-webkit-user-drag:none}
 .hole.up .mob{transform:translateY(0)}
 .mob.bonk img{animation:sq .28s ease-out;transform-origin:50% 100%}
-.mob.rog{left:12%;right:12%;height:76%}.mob.rog.shake img{animation:sh .38s linear}@keyframes sh{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-9%) rotate(-6deg)}40%{transform:translateX(8%) rotate(5deg)}60%{transform:translateX(-6%) rotate(-4deg)}80%{transform:translateX(4%) rotate(2deg)}}
+.mob.rog{left:4%;right:4%;height:80%}.mob.rog img{object-position:50% 100%}.mob.rog.shake img{animation:sh .38s linear}@keyframes sh{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-9%) rotate(-6deg)}40%{transform:translateX(8%) rotate(5deg)}60%{transform:translateX(-6%) rotate(-4deg)}80%{transform:translateX(4%) rotate(2deg)}}
 .mob.gold img{filter:sepia(1) saturate(3.2) hue-rotate(-12deg) brightness(1.25) drop-shadow(0 0 10px #ffd24a)}
 
 @keyframes sq{0%{transform:scale(1,1)}30%{transform:scale(1.25,.6) translateY(22%)}60%{transform:scale(.9,1.1)}100%{transform:scale(1,1)}}
@@ -128,4 +128,4 @@ ol.lb li.me{background:rgba(255,106,0,.18)}
 <p class="gh">Top 10</p><ol class="lb" id="lb2"></ol><p class="lbmsg" id="lbm2"></p></div></div>
 <div class="ov" id="nmOv" hidden><div class="pn"><button class="x" id="nmX" type="button" aria-label="Skip, don't save my name">&#10005;</button><h3>Top 10 score!</h3><p>You scored <b id="nmS">0</b>. Put your name on the scoreboard?</p><form class="nm" id="nmF"><input id="nm" maxlength="12" placeholder="Your name (12 max)" autocomplete="off" aria-label="Name for the scoreboard"><button class="btn o" type="submit">Save</button></form><p class="err" id="err"></p><p class="lbmsg">Or close this to skip.</p></div></div>
 <div class="ov" id="sb" hidden><div class="pn"><button class="x" id="sbX" type="button" aria-label="Close scoreboard">&#10005;</button><h3>Scoreboard</h3><ol class="lb" id="lb3"></ol><p class="lbmsg" id="lbm3"></p><div class="btns"><button class="btn o" id="sbC" type="button">Close</button></div></div></div>
-<script src="whack/game.js?v=2"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
+<script src="whack/game.js?v=3"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
