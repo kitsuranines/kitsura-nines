@@ -5,7 +5,7 @@ var MAXS=5000,MAXN=12;
 var CRE=["backseat","chaos","emote","hype","lore","lurker","scream","sleepy","snack"];
 var $=function(i){return document.getElementById(i)};
 var board=$("board"),holes=[];
-for(var i=0;i<9;i++){var h=document.createElement("div");h.className="hole";var m=document.createElement("div");m.className="mob";var im=document.createElement("img");im.alt="";im.draggable=false;m.appendChild(im);var l=document.createElement("div");l.className="lip";h.appendChild(m);h.appendChild(l);board.appendChild(h);
+for(var i=0;i<9;i++){var h=document.createElement("div");h.className="hole";var m=document.createElement("div");m.className="mob";var im=document.createElement("img");im.alt="";im.draggable=false;m.appendChild(im);var l=document.createElement("div");l.className="lip";var pt=document.createElement("div");pt.className="pit";pt.appendChild(m);h.appendChild(pt);h.appendChild(l);board.appendChild(h);
  holes.push({el:h,mob:m,img:im,kind:null,until:0,hit:false});}
 CRE.concat(["roger"]).forEach(function(c){var p=new Image();p.src=c==="roger"?"img/roger-whack.webp?v=2":"creature/img/"+c+".webp?v=7";});
 var best=+(localStorage.getItem("kn-whack-best")||0);$("best").textContent=best;
@@ -54,6 +54,8 @@ function gameOver(q){running=false;$("quit").hidden=true;$("sb").hidden=true;pau
  $("share").href="https://x.com/intent/post?text="+encodeURIComponent(txt)+"&url="+encodeURIComponent("https://kitsuranines.com/whack/");
  $("over").hidden=false;$("saved").textContent="";loadBoard(function(list){if(score>0&&!submitted&&qualifies(list,score)){$("nmS").textContent=score;$("nm").value="";$("err").textContent="";$("nmOv").hidden=false;try{$("nm").focus({preventScroll:true})}catch(e){}}})}
 function closeNm(){$("nmOv").hidden=true}
+function closeOver(){$("over").hidden=true;$("nmOv").hidden=true;holes.forEach(hide);$("start").hidden=false}
+$("ovX").onclick=closeOver;$("over").addEventListener("click",function(e){if(e.target===this)closeOver()});
 $("nmX").onclick=closeNm;$("quit").onclick=function(){if(running){holes.forEach(hide);gameOver(1)}};
 $("play").onclick=start;$("again").onclick=start;
 // scoreboard overlay pauses play
@@ -61,7 +63,7 @@ function openSB(){if(running)paused=true;$("sb").hidden=false;loadBoard()}
 function closeSB(){$("sb").hidden=true;paused=false;last=0}
 $("sbBtn").onclick=openSB;$("sbX").onclick=closeSB;$("sbC").onclick=closeSB;
 $("sb").addEventListener("click",function(e){if(e.target===this)closeSB()});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("nmOv").hidden)closeNm();else if(!$("sb").hidden)closeSB()}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("nmOv").hidden)closeNm();else if(!$("sb").hidden)closeSB();else if(!$("over").hidden)closeOver()}});
 document.addEventListener("visibilitychange",function(){if(document.hidden&&running)openSB()});
 // name rules
 var BAD=["fuck","fuk","shit","cunt","bitch","nigg","nigga","fag","slut","whore","dick","cock","pussy","penis","vagina","rape","nazi","hitler","retard","kike","spic","chink","tranny","twat","wank","porn","sex","asshole","bastard","dyke","coon","kys","nightowl","nitowl","niteowl","nightow1"];

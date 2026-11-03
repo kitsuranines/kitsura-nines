@@ -77,7 +77,7 @@ html.playing,html.playing body{overflow:hidden;height:100%;overscroll-behavior:n
 .board{--sz:min(92vw,calc(100svh - 300px),560px);width:var(--sz);height:var(--sz);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2%;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .hole{position:relative;overflow:hidden;cursor:pointer;isolation:isolate}
 .hole:after{content:"";position:absolute;left:0;right:0;bottom:1%;height:32%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#000 55%,#1a0d04 70%,rgba(255,106,0,.55) 74%,transparent 78%);z-index:0}
-.hole .lip{position:absolute;left:0;right:0;bottom:0;height:17%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#2a1608,#120904);border-top:3px solid var(--o);z-index:3;box-shadow:0 0 14px rgba(255,106,0,.35)}
+.hole .pit{position:absolute;inset:0;z-index:2;clip-path:inset(0 0 11% 0)}.hole .lip{position:absolute;left:0;right:0;bottom:0;height:17%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#2a1608,#120904);border-top:3px solid var(--o);z-index:3;box-shadow:0 0 14px rgba(255,106,0,.35)}
 .mob{position:absolute;left:6%;right:6%;bottom:9%;height:88%;z-index:2;transform:translateY(125%);transition:transform .14s ease-out;pointer-events:none}
 .mob img{width:100%;height:100%;object-fit:contain;object-position:bottom;display:block;pointer-events:none;-webkit-user-drag:none}
 .hole.up .mob{transform:translateY(0)}
@@ -121,11 +121,11 @@ ol.lb li.me{background:rgba(255,106,0,.18)}
 <p class="how">Bonk every dubious creature that pops up. Each hit in a row adds to your <b>streak</b>; let one hide and the streak resets. Golden creatures are worth <b>+3</b>. Hit <b>Roger</b> and it's game over.</p>
 <div class="btns"><button class="btn o" id="play" type="button">&#9654; Play</button></div>
 <p class="gh">Top 10</p><ol class="lb" id="lb1"></ol><p class="lbmsg" id="lbm1"></p></div></div>
-<div class="ov" id="over" hidden><div class="pn"><h3 id="ovT">You bonked Roger.</h3><img class="rg" src="img/roger-peek.webp?v=1" alt="Roger peeking out, very annoyed" width="200" height="188">
+<div class="ov" id="over" hidden><div class="pn"><button class="x" id="ovX" type="button" aria-label="Close">&#10005;</button><h3 id="ovT">You bonked Roger.</h3><img class="rg" src="img/roger-peek.webp?v=1" alt="Roger peeking out, very annoyed" width="200" height="188">
 <p>Score <b id="fS">0</b> · Best streak this run <b id="fB">0</b></p><p id="pb" class="lbmsg"></p>
 <p class="lbmsg" id="saved"></p>
 <div class="btns"><button class="btn o" id="again" type="button">&#8635; Play again</button><a class="btn" id="share" href="#" target="_blank" rel="noopener">Share on X</a></div>
 <p class="gh">Top 10</p><ol class="lb" id="lb2"></ol><p class="lbmsg" id="lbm2"></p></div></div>
 <div class="ov" id="nmOv" hidden><div class="pn"><button class="x" id="nmX" type="button" aria-label="Skip, don't save my name">&#10005;</button><h3>Top 10 score!</h3><p>You scored <b id="nmS">0</b>. Put your name on the scoreboard?</p><form class="nm" id="nmF"><input id="nm" maxlength="12" placeholder="Your name (12 max)" autocomplete="off" aria-label="Name for the scoreboard"><button class="btn o" type="submit">Save</button></form><p class="err" id="err"></p><p class="lbmsg">Or close this to skip.</p></div></div>
 <div class="ov" id="sb" hidden><div class="pn"><button class="x" id="sbX" type="button" aria-label="Close scoreboard">&#10005;</button><h3>Scoreboard</h3><ol class="lb" id="lb3"></ol><p class="lbmsg" id="lbm3"></p><div class="btns"><button class="btn o" id="sbC" type="button">Close</button></div></div></div>
-<script src="whack/game.js?v=3"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
+<script src="whack/game.js?v=4"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
