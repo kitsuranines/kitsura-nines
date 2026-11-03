@@ -66,10 +66,23 @@ $("sb").addEventListener("click",function(e){if(e.target===this)closeSB()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("nmOv").hidden)closeNm();else if(!$("sb").hidden)closeSB();else if(!$("over").hidden)closeOver()}});
 document.addEventListener("visibilitychange",function(){if(document.hidden&&running)openSB()});
 // name rules
-var BAD=["fuck","fuk","shit","cunt","bitch","nigg","nigga","fag","slut","whore","dick","cock","pussy","penis","vagina","rape","nazi","hitler","retard","kike","spic","chink","tranny","twat","wank","porn","sex","asshole","bastard","dyke","coon","kys","nightowl","nitowl","niteowl","nightow1"];
-function norm(s){return s.toLowerCase().replace(/[\s_\-]/g,"").replace(/0/g,"o").replace(/[1!|]/g,"i").replace(/3/g,"e").replace(/4/g,"a").replace(/5/g,"s").replace(/7/g,"t").replace(/8/g,"b").replace(/9/g,"g").replace(/(.)\1+/g,"$1")}
-function nameOk(n){if(typeof n!=="string"||!/^[A-Za-z0-9 _-]{1,12}$/.test(n)||!n.trim())return false;var a=norm(n),b=a.replace(/i/g,"l");var dd=n.toLowerCase().replace(/[\s_\-]/g,"");
- return !BAD.some(function(w){var x=norm(w);return a.indexOf(x)>=0||b.indexOf(x)>=0||dd.indexOf(w)>=0})&&!/n+[i1l!|y]+[gq]*h*t+[o0]+[wv]+[l1i|]/.test(dd)&&!/n+[i1]+[gq]?h?t+e?\s*o+w+l/.test(n.toLowerCase())}
+var BAD=["fuck","fuk","fuq","fck","fcuk","phuck","motherfuck","shit","shite","sht","cunt","kunt","bitch","biatch","btch","niga","nigr","nigur","niger","nigah","negro","fag","faggot","slut","whore","hoe","dick","dik","cock","cok","pussy","pusy","penis","vagina","vulva","clit","rape","rapist","molest","pedo","paedo","nazi","hitler","heil","retard","tard","kike","spic","spick","chink","gook","wetback","beaner","tranny","shemale","twat","wank","wanker","jizz","porn","sex","boob","tits","titty","anal","anus","asshole","arse","arsehole","bastard","dyke","coon","jigaboo","raghead","towelhead","kys","killyourself","suicide","bollock","bugger","prick","skank","thot","milf","dildo","cum","semen","orgasm","horny","nude","naked","blowjob","handjob","rimjob","boner","erect","scrotum","testicle","incest","bestiality","nightowl","nitowl","niteowl"];
+var WEAK=["ass","hoe","cum","tit","tits","fag","sex","anal","anus","dik","cok","sht","fck","tard","coon","spic","heil","nude","kys","erect","prick","bugger","semen"];
+var ALLOW=["class","glass","grass","brass","bass","pass","mass","lass","assassin","assist","assess","asset","assum","cassi","embarrass","scrap","scunthorpe","dickens","dickinson","cocktail","cockpit","peacock","hancock","shitake","shiitake","cucumber","circum","document","scum","therapist","grape","drape","sussex","essex","middlesex","analys","canal","banal","titan","title","titl","petit","constitut","hoed","shoe","hoes","coonhound","raccoon","cocoon","tycoon","spice","spicy","hello","shell","skills","pussycat","japan","manuscript","therapi","scrape","grapefruit","specific"];
+function base(s){return String(s).normalize("NFD").replace(/[\u0300-\u036f\u200b-\u200f\u2060\ufeff]/g,"").toLowerCase()}
+function leet(s,one){return s.replace(/0/g,"o").replace(/1/g,one).replace(/[|!]/g,"i").replace(/3/g,"e").replace(/[4@]/g,"a").replace(/[5$]/g,"s").replace(/7/g,"t").replace(/8/g,"b").replace(/9/g,"g").replace(/\+/g,"t")}
+function sq(s){return s.replace(/[^a-z]/g,"").replace(/(.)\1+/g,"$1")}
+var BADN=BAD.map(sq),WEAKN=WEAK.map(sq),ALLOWN=ALLOW.map(sq);
+function norm(s){return sq(leet(base(s),"i"))}
+function isBad(n){var b=base(n),hit=false;
+ ["i","l"].forEach(function(one){var l=leet(b,one),w=sq(l);
+  var toks=l.split(/[^a-z]+/).map(sq).filter(Boolean);toks.push(w);
+  if(toks.some(function(t){return WEAKN.indexOf(t)>=0}))hit=true;
+  ALLOWN.forEach(function(a){w=w.split(a).join("~")});
+  if(BADN.some(function(x){return WEAKN.indexOf(x)<0&&w.indexOf(x)>=0}))hit=true;
+  if(/k{3,}/.test(l.replace(/[^a-z]/g,""))||/n+i+(g+h*)?t+e*o+w+l/.test(w)||/n+[iy]+t+e*o+w+l/.test(w))hit=true});
+ return hit}
+function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$/.test(n)||!n.trim())return false;return !isBad(n)}
 function clean(d){var s=d&&d.data&&Array.isArray(d.data.s)?d.data.s:[];return s.filter(function(r){return Array.isArray(r)&&nameOk(r[0])&&Number.isInteger(r[1])&&r[1]>0&&r[1]<=MAXS}).sort(function(a,b){return b[1]-a[1]}).slice(0,10)}
 function qualifies(list,sc){return sc>0&&sc<=MAXS&&(list.length<10||sc>list[list.length-1][1])}
 var cache=null,mine=null;
