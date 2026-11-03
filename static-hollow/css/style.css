@@ -27,6 +27,7 @@ main{max-width:1150px;margin:0 auto;padding:1rem 1.2rem 3rem}
 .meta{letter-spacing:.2em;text-transform:uppercase;opacity:.85}.meta b{color:var(--o)}
 .note{border-left:3px solid var(--o);padding-left:.8rem;font-weight:600;font-size:.9rem}
 .panel h2{color:var(--o);letter-spacing:.25em;margin-top:0}.lore p{text-align:left;max-width:75ch;white-space:pre-line}
+.lore h3{color:var(--o);letter-spacing:.2em;text-transform:uppercase;margin:1.6rem 0 .4rem;font-size:1rem}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
 .gallery img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#050505;cursor:zoom-in;border:1px solid #222;transition:border-color .2s}.gallery img:hover{border-color:var(--o)}
 .btn{display:inline-block;padding:.6rem 1.3rem;border:1px solid var(--o);color:var(--o);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;background:rgba(0,0,0,.7)}.btn:hover{background:var(--o);color:#000}

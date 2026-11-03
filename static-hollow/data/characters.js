@@ -172,3 +172,59 @@ window.CHARACTERS = [
     "links": []
   }
 ];
+// Hidden entries: reachable only by typing character.html?id=..., never listed.
+window.HIDDEN_ENTRIES = [{
+  "id": "h0ll0w",
+  "name": "Static Hollow",
+  "fullName": "STATIC HOLLOW",
+  "title": "The Realm",
+  "species": "",
+  "note": "",
+  "image": "assets/img/bg.webp",
+  "intro": "",
+  "lore": [
+    "## Origin",
+    "Static Hollow isn't anywhere. No coordinates, no roads, no map that holds its shape. It is closer to a state of being, somewhere between thought and memory, signal and silence.",
+    "It began, as far as anyone can tell, with Nines.",
+    "Before she could walk or speak, she existed in pieces: impressions, assumptions, stories passed between strangers. Every person who perceived her made a slightly different version. Some gave her teeth. Some made her cruel, some kind. Thousands of versions piled up until perception grew too heavy to stay imaginary.",
+    "When Nines opened her eyes, she found Static Hollow already there, as if it had been waiting for someone to notice it.",
+    "## The Forest",
+    "The Hollow appears as an endless dead forest of black, crooked trees bent in ways trees shouldn't bend. Paths rearrange when no one is watching. There is almost no color: charcoal earth, black bark, pale fog that never grows thick enough to hide what's ahead. You can always see further. Never far enough.",
+    "There is no birdsong, no insects, no wind. Only a low, constant electrical hum.",
+    "Wires hang everywhere, draped between branches, coiled around trunks, sinking into the earth like roots. No poles hold them. Nothing powers them. They keep spreading, as if the forest is growing a nervous system.",
+    "Among them sit old CRT televisions, half-buried in mud, swallowed by roots, stacked into crooked towers. None are plugged in. All of them are on. Most show only static. Sometimes a face, a room, or a memory flickers beneath it.",
+    "And sometimes, something looks back: a thin amber eye, turned vertical.",
+    "Amber is the only color the Hollow seems capable of remembering.",
+    "## The Cathedral",
+    "Beyond the trees stands the Cathedral. Its distance never holds. At times it seems miles away; at others it looms just past the next line of trees. Its towers vanish into darkness, and stone bridges span impossible gaps, some ending in fog with no destination.",
+    "It has no wires and no screens. It looks older than technology itself, a monument to the hope that something could stay untouched by the noise.",
+    "But deep inside, the hum remains. Some windows glow amber with no lamps. And far beneath its foundations, black wires thread through the stone.",
+    "The Cathedral doesn't exist outside the system. It exists because the Hollow needed somewhere to pretend the system couldn't reach.",
+    "## Nines and the Hollow",
+    "Nines didn't build the Hollow. It formed alongside her, the shadow of her existence. Her domain, but not entirely her creation.",
+    "Unlike anyone else, she isn't bound to it. Nines can leave and return whenever she chooses: any screen can carry her out, any static can bring her home. The Hollow doesn't hold her. It waits for her.",
+    "It reacts to her. When she's distressed, the static grows louder. When she focuses, signals clear, paths shift, and the Cathedral draws closer. The Hollow doesn't understand geography. It understands meaning, and above all, perception.",
+    "To be observed here is to be changed. To believe something strongly enough can make it appear. A truth known by one person leaves almost no trace. A lie believed by thousands becomes architecture.",
+    "The Hollow rewrites everything it perceives. Everything but her. It cannot unmake the thing it woke alongside, so instead it makes copies: versions of Nines that only ever existed in someone else's head, flickering as silhouettes behind the static.",
+    "## The Signal",
+    "The signal doesn't need a television. Any connected screen will do. A frozen frame, a flicker of static, then for a single frame, an amber eye. Nearly everyone blinks and it's gone.",
+    "But Nines can open the way. When she does, the eye on the screen is hers, and the static parts like a door. Those she lets in arrive as themselves, with their own stories, worlds, and rules. They are guests, not part of the Hollow.",
+    "Even guests can't wander far alone. Without Nines to lead them, they'd lose the way back, and the longer anyone stays lost, the more the Hollow decides who they are.",
+    "Very rarely, someone slips through uninvited. No one opened a door for them, and no one leads them out. They wander, get lost, and slowly the Hollow rewrites them into something it understands.",
+    "## The Eye",
+    "The eye appears everywhere: on screens, in Cathedral windows, in cracks of stone, beneath bark. It represents attribution, the moment someone stops asking what happened and starts deciding why. Every assigned motive adds weight to the Hollow.",
+    "And the Hollow remembers weight. That may be why its eyes never close.",
+    "## Time and the Hum",
+    "Time in the Hollow is measured in attention. Screens replay old events as if they're happening now, or show things that never happened. What people refuse to release lingers. What no one remembers decays.",
+    "No one has found the hum's source. Cut the wires, smash the screens, descend beneath the Cathedral, and it only grows louder. Maybe it was never electricity. Maybe it's the sound of countless minds thinking about the same thing at once.",
+    "## What the Hollow Is",
+    "The forest grew from uncontrolled information. The wires from connection without understanding. The televisions from endless interpretation. The Cathedral from the hope that anything could stay untouched.",
+    "And somewhere between them stands Nines. Not its prisoner. Not its god. The one thing within it that learned to look back.",
+    "But the televisions sometimes whisper another possibility: that Static Hollow was always where those thoughts were gathering, waiting for something to finally wake up inside them."
+  ],
+  "references": [
+    "assets/img/logo.webp",
+    "assets/img/bg.webp"
+  ],
+  "hidden": true
+}];
