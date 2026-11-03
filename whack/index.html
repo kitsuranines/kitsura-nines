@@ -75,14 +75,16 @@ html.playing,html.playing body{overflow:hidden;height:100%;overscroll-behavior:n
 .tb{background:var(--b);color:var(--w);border:2px solid var(--w);font:800 .8rem 'Exo 2',sans-serif;text-transform:uppercase;padding:.45rem .8rem;cursor:pointer}
 .tb:hover{border-color:var(--o);color:var(--o)}
 .board{--sz:min(92vw,calc(100svh - 300px),560px);width:var(--sz);height:var(--sz);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2%;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
-.hole{position:relative;overflow:hidden;border-radius:0 0 50% 50%/0 0 30% 30%;cursor:pointer}
+.hole{position:relative;overflow:hidden;cursor:pointer;isolation:isolate}
 .hole:after{content:"";position:absolute;left:0;right:0;bottom:1%;height:32%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#000 55%,#1a0d04 70%,rgba(255,106,0,.55) 74%,transparent 78%);z-index:0}
 .hole .lip{position:absolute;left:0;right:0;bottom:0;height:17%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#2a1608,#120904);border-top:3px solid var(--o);z-index:3;box-shadow:0 0 14px rgba(255,106,0,.35)}
-.mob{position:absolute;left:2%;right:2%;bottom:6%;height:96%;z-index:2;transform:translateY(105%);transition:transform .14s ease-out;pointer-events:none}
+.mob{position:absolute;left:6%;right:6%;bottom:9%;height:88%;z-index:2;transform:translateY(105%);transition:transform .14s ease-out;pointer-events:none}
 .mob img{width:100%;height:100%;object-fit:contain;object-position:bottom;display:block;pointer-events:none;-webkit-user-drag:none}
 .hole.up .mob{transform:translateY(0)}
+.mob.bonk img{animation:sq .28s ease-out;transform-origin:50% 100%}
+.mob.rog{left:12%;right:12%;height:76%}.mob.rog.shake img{animation:sh .38s linear}@keyframes sh{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-9%) rotate(-6deg)}40%{transform:translateX(8%) rotate(5deg)}60%{transform:translateX(-6%) rotate(-4deg)}80%{transform:translateX(4%) rotate(2deg)}}
 .mob.gold img{filter:sepia(1) saturate(3.2) hue-rotate(-12deg) brightness(1.25) drop-shadow(0 0 10px #ffd24a)}
-.mob.bonk{animation:sq .28s ease-out}
+
 @keyframes sq{0%{transform:scale(1,1)}30%{transform:scale(1.25,.6) translateY(22%)}60%{transform:scale(.9,1.1)}100%{transform:scale(1,1)}}
 .dz{position:absolute;left:50%;top:22%;transform:translate(-50%,-50%);font-size:clamp(1.4rem,7vw,2.4rem);z-index:4;pointer-events:none;animation:dz .6s linear forwards}
 @keyframes dz{0%{opacity:1;transform:translate(-50%,-50%) rotate(0)}100%{opacity:0;transform:translate(-50%,-90%) rotate(360deg)}}
@@ -112,17 +114,18 @@ ol.lb li.me{background:rgba(255,106,0,.18)}
 </style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Whack-a-Creature", "url": "https://kitsuranines.com/whack/", "description": "Bonk the dubious creatures as they pop out of their holes and build your streak. Don't touch Roger. Play free in your browser on phone or desktop.", "image": "https://kitsuranines.com/whack/og.jpg?v=1", "genre": "Arcade", "gamePlatform": "Web browser", "applicationCategory": "GameApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Kitsura Nines", "url": "https://kitsuranines.com/"}}</script></head>
 <body><nav class="nav"><a href="static-hollow/">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="cameos.html">Cameos</a><a href="index.html#discord">Socials</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a></nav><main class="over"><div class="wk"><h1 class="sr-only">Whack-a-Creature</h1><h2>Whack-a-Creature</h2>
 <div class="top"><div class="hud"><div class="st big"><b id="streak">0</b><small>Streak</small></div><div class="st"><b id="score">0</b><small>Score</small></div><div class="st"><b id="best">0</b><small>Best streak</small></div></div>
-<div class="tools"><button class="tb" id="sbBtn" type="button">&#9733; Scoreboard</button><button class="tb" id="mute" type="button" aria-pressed="false">&#128264; Sound on</button></div></div>
+<div class="tools"><button class="tb" id="sbBtn" type="button">&#9733; Scoreboard</button><button class="tb" id="quit" type="button" hidden>&#9632; Quit</button><button class="tb" id="mute" type="button" aria-pressed="false">&#128264; Sound on</button></div></div>
 <div class="board" id="board" aria-label="Game board"></div></div>
 <footer><img src="img/mark.svg" alt="">\ DUBIOUS FOX &#10005;</footer></main>
 <div class="ov" id="start"><div class="pn"><h3>Whack-a-Creature</h3><img class="rg" src="creature/img/chaos.webp?v=7" alt="A dubious creature with a lit bomb" width="600" height="606">
 <p class="how">Bonk every dubious creature that pops up. Each hit in a row adds to your <b>streak</b>; let one hide and the streak resets. Golden creatures are worth <b>+3</b>. Hit <b>Roger</b> and it's game over.</p>
 <div class="btns"><button class="btn o" id="play" type="button">&#9654; Play</button></div>
 <p class="gh">Top 10</p><ol class="lb" id="lb1"></ol><p class="lbmsg" id="lbm1"></p></div></div>
-<div class="ov" id="over" hidden><div class="pn"><h3 id="ovT">You bonked Roger.</h3><img class="rg" src="pet/img/roger-pet.webp?v=1" alt="Roger, very annoyed" width="459" height="600">
+<div class="ov" id="over" hidden><div class="pn"><h3 id="ovT">You bonked Roger.</h3><img class="rg" src="img/roger-peek.webp?v=1" alt="Roger peeking out, very annoyed" width="200" height="188">
 <p>Score <b id="fS">0</b> · Best streak this run <b id="fB">0</b></p><p id="pb" class="lbmsg"></p>
-<form class="nm" id="nmF" hidden><input id="nm" maxlength="12" placeholder="Your name (12 max)" autocomplete="off" aria-label="Name for the scoreboard"><button class="btn o" type="submit">Save</button></form><p class="err" id="err"></p>
+<p class="lbmsg" id="saved"></p>
 <div class="btns"><button class="btn o" id="again" type="button">&#8635; Play again</button><a class="btn" id="share" href="#" target="_blank" rel="noopener">Share on X</a></div>
 <p class="gh">Top 10</p><ol class="lb" id="lb2"></ol><p class="lbmsg" id="lbm2"></p></div></div>
+<div class="ov" id="nmOv" hidden><div class="pn"><button class="x" id="nmX" type="button" aria-label="Skip, don't save my name">&#10005;</button><h3>Top 10 score!</h3><p>You scored <b id="nmS">0</b>. Put your name on the scoreboard?</p><form class="nm" id="nmF"><input id="nm" maxlength="12" placeholder="Your name (12 max)" autocomplete="off" aria-label="Name for the scoreboard"><button class="btn o" type="submit">Save</button></form><p class="err" id="err"></p><p class="lbmsg">Or close this to skip.</p></div></div>
 <div class="ov" id="sb" hidden><div class="pn"><button class="x" id="sbX" type="button" aria-label="Close scoreboard">&#10005;</button><h3>Scoreboard</h3><ol class="lb" id="lb3"></ol><p class="lbmsg" id="lbm3"></p><div class="btns"><button class="btn o" id="sbC" type="button">Close</button></div></div></div>
-<script src="whack/game.js?v=1"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
+<script src="whack/game.js?v=2"></script><script src="js/embers.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
