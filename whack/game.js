@@ -86,10 +86,10 @@ function isBad(n){var b=base(n),hit=false;
  return hit}
 var HG={"\u0430":"a","\u0435":"e","\u0451":"e","\u0456":"i","\u0457":"i","\u0458":"j","\u043e":"o","\u0440":"p","\u0441":"c","\u0443":"y","\u0445":"x","\u043a":"k","\u0433":"r","\u0501":"d","\u050d":"g","\u0261":"g","\u03b9":"i","\u03bf":"o","\u03b1":"a","\u03b5":"e","\u03ba":"k","\u03bd":"v","\u0131":"i","\u0269":"i","\u0274":"n","\u0578":"n","\u057c":"n"};
 function slur(n){if(/14\D*88/.test(String(n)))return true;var b=base(n).replace(/[^\x00-\x7f]/g,function(c){return HG[c]||c});var out=false;
- ["i","l"].forEach(function(one){var l=leet(b,one).replace(/6/g,"g").replace(/[^a-z]/g,"");
+ ["i","l"].forEach(function(one){var l=leet(b,one).replace(/6/g,"g").replace(/[^a-z]/g,"").replace(/nikki|nikky/g,"~");
   [l,l.replace(/[jy]/g,"i").replace(/q/g,"g").replace(/kk/g,"gg")].forEach(function(v){
    var a=v.replace(/nigerians?|nigeria|nigella|nigel|niger(?!r)|knights?|nights?/g,"~");var w=sq(a.replace(/~/g,"-")),r=w.split("").reverse().join("");
-   if(/nig|nyg|nikk|niba|nibe|n[ie]+gr|negro|kneg|nega|neger|nigra/.test(w)||/nikk/.test(v))out=true;
+   if(/nig|nyg|nikk|niba|nibe|n[ie]+gr|negro|kneg|nega|neger|nigra/.test(w)||/nikk/.test(a))out=true;
    if(/fag|fgt|phag|fagot|fegit|fegot|fagit|fgot|fayg|fejg|faget/.test(w))out=true;
    if(/^(regin|agin|ragin|togaf|tagaf|gaf)$/.test(w))out=true;
    if(/troon|heeb/.test(v)||/troon|trany|tranie|shemale|ladyboy|kike|kyke|heeb|hymie|jewboy|zog|nazi|natzi|hitler|hitla|siegh|sieg|whitepow|wpww|gasthe|holohoax|groyp/.test(w))out=true});
