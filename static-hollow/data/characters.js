@@ -181,7 +181,7 @@ window.HIDDEN_ENTRIES = [{
   "species": "",
   "note": "",
   "image": "assets/img/hollow.webp",
-  "intro": "",
+  "intro": "“A truth known by one person leaves almost no trace. A lie believed by thousands becomes architecture.”",
   "lore": [
     "## Origin",
     "Static Hollow isn't anywhere. No coordinates, no roads, no map that holds its shape. It is closer to a state of being, somewhere between thought and memory, signal and silence.",
