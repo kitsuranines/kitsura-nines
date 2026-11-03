@@ -68,7 +68,7 @@ $("sb").addEventListener("click",function(e){if(e.target===this)closeSB()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("nmOv").hidden)closeNm();else if(!$("sb").hidden)closeSB();else if(!$("over").hidden)closeOver()}});
 document.addEventListener("visibilitychange",function(){if(document.hidden&&running)openSB()});
 // name rules
-var BAD=["fuck","fuk","fuq","fck","fcuk","phuck","motherfuck","shit","shite","sht","cunt","kunt","bitch","biatch","btch","niga","nigr","nigur","niger","nigah","negro","fag","faggot","slut","whore","hoe","dick","dik","cock","cok","pussy","pusy","penis","vagina","vulva","clit","rape","rapist","molest","pedo","paedo","nazi","hitler","heil","retard","tard","kike","spic","spick","chink","gook","wetback","beaner","tranny","shemale","twat","wank","wanker","jizz","porn","sex","boob","tits","titty","anal","anus","asshole","arse","arsehole","bastard","dyke","coon","jigaboo","raghead","towelhead","kys","killyourself","suicide","bollock","bugger","prick","skank","thot","milf","dildo","cum","semen","orgasm","horny","nude","naked","blowjob","handjob","rimjob","boner","erect","scrotum","testicle","incest","bestiality","nightowl","nitowl","niteowl"];
+var BAD=["fuck","fuk","fuq","fck","fcuk","phuck","motherfuck","shit","shite","sht","cunt","kunt","bitch","biatch","btch","negro","fag","faggot","slut","whore","hoe","dick","dik","cock","cok","pussy","pusy","penis","vagina","vulva","clit","rape","rapist","molest","pedo","paedo","nazi","hitler","heil","retard","tard","kike","spic","spick","chink","gook","wetback","beaner","tranny","shemale","twat","wank","wanker","jizz","porn","sex","boob","tits","titty","anal","anus","asshole","arse","arsehole","bastard","dyke","coon","jigaboo","raghead","towelhead","kys","killyourself","suicide","bollock","bugger","prick","skank","thot","milf","dildo","cum","semen","orgasm","horny","nude","naked","blowjob","handjob","rimjob","boner","erect","scrotum","testicle","incest","bestiality","nightowl","nitowl","niteowl"];
 var WEAK=["ass","hoe","cum","tit","tits","fag","sex","anal","anus","dik","cok","sht","fck","tard","coon","spic","heil","nude","kys","erect","prick","bugger","semen"];
 var ALLOW=["class","glass","grass","brass","bass","pass","mass","lass","assassin","assist","assess","asset","assum","cassi","embarrass","scrap","scunthorpe","dickens","dickinson","cocktail","cockpit","peacock","hancock","shitake","shiitake","cucumber","circum","document","scum","therapist","grape","drape","sussex","essex","middlesex","analys","canal","banal","titan","title","titl","petit","constitut","hoed","shoe","hoes","coonhound","raccoon","cocoon","tycoon","spice","spicy","hello","shell","skills","pussycat","japan","manuscript","therapi","scrape","grapefruit","specific"];
 function base(s){return String(s).normalize("NFD").replace(/[\u0300-\u036f\u200b-\u200f\u2060\ufeff]/g,"").toLowerCase()}
@@ -84,7 +84,17 @@ function isBad(n){var b=base(n),hit=false;
   if(BADN.some(function(x){return WEAKN.indexOf(x)<0&&w.indexOf(x)>=0}))hit=true;
   if(/k{3,}/.test(l.replace(/[^a-z]/g,""))||/n+i+(g+h*)?t+e*o+w+l/.test(w)||/n+[iy]+t+e*o+w+l/.test(w))hit=true});
  return hit}
-function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$/.test(n)||!n.trim())return false;return !isBad(n)}
+var HG={"\u0430":"a","\u0435":"e","\u0451":"e","\u0456":"i","\u0457":"i","\u0458":"j","\u043e":"o","\u0440":"p","\u0441":"c","\u0443":"y","\u0445":"x","\u043a":"k","\u0433":"r","\u0501":"d","\u050d":"g","\u0261":"g","\u03b9":"i","\u03bf":"o","\u03b1":"a","\u03b5":"e","\u03ba":"k","\u03bd":"v","\u0131":"i","\u0269":"i","\u0274":"n","\u0578":"n","\u057c":"n"};
+function slur(n){if(/14\D*88/.test(String(n)))return true;var b=base(n).replace(/[^\x00-\x7f]/g,function(c){return HG[c]||c});var out=false;
+ ["i","l"].forEach(function(one){var l=leet(b,one).replace(/6/g,"g").replace(/[^a-z]/g,"");
+  [l,l.replace(/[jy]/g,"i").replace(/q/g,"g").replace(/kk/g,"gg")].forEach(function(v){
+   var a=v.replace(/nigerians?|nigeria|nigella|nigel|niger(?!r)|knights?|nights?/g,"~");var w=sq(a.replace(/~/g,"-")),r=w.split("").reverse().join("");
+   if(/nig|nyg|nikk|niba|nibe|n[ie]+gr|negro|kneg|nega|neger|nigra/.test(w)||/nikk/.test(v))out=true;
+   if(/fag|fgt|phag|fagot|fegit|fegot|fagit|fgot|fayg|fejg|faget/.test(w))out=true;
+   if(/^(regin|agin|ragin|togaf|tagaf|gaf)$/.test(w))out=true;
+   if(/troon|heeb/.test(v)||/troon|trany|tranie|shemale|ladyboy|kike|kyke|heeb|hymie|jewboy|zog|nazi|natzi|hitler|hitla|siegh|sieg|whitepow|wpww|gasthe|holohoax|groyp/.test(w))out=true});
+ });return out}
+function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$/.test(n)||!n.trim())return false;return !isBad(n)&&!slur(n)}
 function clean(d){var s=d&&d.data&&Array.isArray(d.data.s)?d.data.s:[];return s.filter(function(r){return Array.isArray(r)&&nameOk(r[0])&&Number.isInteger(r[1])&&r[1]>0&&r[1]<=MAXS}).sort(function(a,b){return b[1]-a[1]}).slice(0,10)}
 function qualifies(list,sc){return sc>0&&sc<=MAXS&&(list.length<10||sc>list[list.length-1][1])}
 var cache=null,mine=null;
