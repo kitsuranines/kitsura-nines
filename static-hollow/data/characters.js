@@ -180,7 +180,7 @@ window.HIDDEN_ENTRIES = [{
   "title": "The Realm",
   "species": "",
   "note": "",
-  "image": "assets/img/bg.webp",
+  "image": "assets/img/hollow.webp",
   "intro": "",
   "lore": [
     "## Origin",
@@ -223,8 +223,7 @@ window.HIDDEN_ENTRIES = [{
     "But the televisions sometimes whisper another possibility: that Static Hollow was always where those thoughts were gathering, waiting for something to finally wake up inside them."
   ],
   "references": [
-    "assets/img/logo.webp",
-    "assets/img/bg.webp"
+    "assets/img/hollow.webp"
   ],
   "hidden": true
 }];
