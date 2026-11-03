@@ -74,11 +74,11 @@ html.playing,html.playing body{overflow:hidden;height:100%;overscroll-behavior:n
 .tools{display:flex;justify-content:center;gap:.5rem;margin-bottom:.7rem}
 .tb{background:var(--b);color:var(--w);border:2px solid var(--w);font:800 .8rem 'Exo 2',sans-serif;text-transform:uppercase;padding:.45rem .8rem;cursor:pointer}
 .tb:hover{border-color:var(--o);color:var(--o)}
-.board{--sz:min(92vw,calc(100svh - 300px),560px);width:var(--sz);height:var(--sz);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:4%;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.board{--sz:min(92vw,calc(100svh - 300px),560px);width:var(--sz);height:var(--sz);margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2%;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .hole{position:relative;overflow:hidden;border-radius:0 0 50% 50%/0 0 30% 30%;cursor:pointer}
-.hole:after{content:"";position:absolute;left:4%;right:4%;bottom:2%;height:30%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#000 55%,#1a0d04 70%,rgba(255,106,0,.55) 74%,transparent 78%);z-index:0}
-.hole .lip{position:absolute;left:2%;right:2%;bottom:0;height:16%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#2a1608,#120904);border-top:3px solid var(--o);z-index:3;box-shadow:0 0 14px rgba(255,106,0,.35)}
-.mob{position:absolute;left:8%;right:8%;bottom:8%;height:88%;z-index:2;transform:translateY(105%);transition:transform .14s ease-out;pointer-events:none}
+.hole:after{content:"";position:absolute;left:0;right:0;bottom:1%;height:32%;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#000 55%,#1a0d04 70%,rgba(255,106,0,.55) 74%,transparent 78%);z-index:0}
+.hole .lip{position:absolute;left:0;right:0;bottom:0;height:17%;border-radius:0 0 50% 50%/0 0 100% 100%;background:linear-gradient(#2a1608,#120904);border-top:3px solid var(--o);z-index:3;box-shadow:0 0 14px rgba(255,106,0,.35)}
+.mob{position:absolute;left:2%;right:2%;bottom:6%;height:96%;z-index:2;transform:translateY(105%);transition:transform .14s ease-out;pointer-events:none}
 .mob img{width:100%;height:100%;object-fit:contain;object-position:bottom;display:block;pointer-events:none;-webkit-user-drag:none}
 .hole.up .mob{transform:translateY(0)}
 .mob.gold img{filter:sepia(1) saturate(3.2) hue-rotate(-12deg) brightness(1.25) drop-shadow(0 0 10px #ffd24a)}
@@ -107,11 +107,12 @@ ol.lb li.me{background:rgba(255,106,0,.18)}
 .lbmsg{opacity:.7;font-size:.9rem}
 .nm{display:flex;gap:.4rem;margin:.6rem 0}.nm input{flex:1;min-width:0;padding:.6rem;font:600 1rem 'Exo 2',sans-serif;background:#000;color:#fff;border:2px solid var(--w)}
 .err{color:#ff7a7a;font-size:.85rem;min-height:1.1em}
+@media (min-width:700px){.wk{max-width:900px;padding-top:.5rem}.wk h2{margin-bottom:.2rem}.top{display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.5rem}.top .hud,.top .tools{margin:0}.board{--sz:min(92vw,calc(100svh - 215px),680px)}}
 .how{font-size:.95rem;opacity:.9}.how b{color:var(--o)}
 </style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Whack-a-Creature", "url": "https://kitsuranines.com/whack/", "description": "Bonk the dubious creatures as they pop out of their holes and build your streak. Don't touch Roger. Play free in your browser on phone or desktop.", "image": "https://kitsuranines.com/whack/og.jpg?v=1", "genre": "Arcade", "gamePlatform": "Web browser", "applicationCategory": "GameApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Person", "name": "Kitsura Nines", "url": "https://kitsuranines.com/"}}</script></head>
 <body><nav class="nav"><a href="static-hollow/">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="cameos.html">Cameos</a><a href="index.html#discord">Socials</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a></nav><main class="over"><div class="wk"><h1 class="sr-only">Whack-a-Creature</h1><h2>Whack-a-Creature</h2>
-<div class="hud"><div class="st big"><b id="streak">0</b><small>Streak</small></div><div class="st"><b id="score">0</b><small>Score</small></div><div class="st"><b id="best">0</b><small>Best streak</small></div></div>
-<div class="tools"><button class="tb" id="sbBtn" type="button">&#9733; Scoreboard</button><button class="tb" id="mute" type="button" aria-pressed="false">&#128264; Sound on</button></div>
+<div class="top"><div class="hud"><div class="st big"><b id="streak">0</b><small>Streak</small></div><div class="st"><b id="score">0</b><small>Score</small></div><div class="st"><b id="best">0</b><small>Best streak</small></div></div>
+<div class="tools"><button class="tb" id="sbBtn" type="button">&#9733; Scoreboard</button><button class="tb" id="mute" type="button" aria-pressed="false">&#128264; Sound on</button></div></div>
 <div class="board" id="board" aria-label="Game board"></div></div>
 <footer><img src="img/mark.svg" alt="">\ DUBIOUS FOX &#10005;</footer></main>
 <div class="ov" id="start"><div class="pn"><h3>Whack-a-Creature</h3><img class="rg" src="creature/img/chaos.webp?v=7" alt="A dubious creature with a lit bomb" width="600" height="606">
