@@ -63,7 +63,7 @@ $("play").onclick=start;$("again").onclick=start;
 // scoreboard overlay pauses play
 function openSB(){if(running)paused=true;$("sb").hidden=false;loadBoard()}
 function closeSB(){$("sb").hidden=true;paused=false;last=0}
-$("sbBtn").onclick=openSB;$("sbStart").onclick=openSB;$("sbX").onclick=closeSB;$("sbC").onclick=closeSB;
+$("sbBtn").onclick=openSB;$("sbX").onclick=closeSB;$("sbC").onclick=closeSB;
 $("sb").addEventListener("click",function(e){if(e.target===this)closeSB()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(!$("nmOv").hidden)closeNm();else if(!$("sb").hidden)closeSB();else if(!$("over").hidden)closeOver()}});
 document.addEventListener("visibilitychange",function(){if(document.hidden&&running)openSB()});
