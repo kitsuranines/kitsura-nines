@@ -1,6 +1,8 @@
 (function(){
 "use strict";
-var API="https://api.restful-api.dev/objects/ff808181a09d98f701a19edcaac71536";
+var KV="https://keyvalue.immanuel.co/api/KeyVal/",KVA="i8hhljmq",KVK="kwtop";
+function enc(l){if(!l.length)return "0";var t=l.map(function(r){return r[0]+":"+r[1]}).join("|");return btoa(t).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function dec(v){try{v=String(v||"").replace(/^"|"$/g,"");if(!v)return{data:{s:[]}};var t=atob(v.replace(/-/g,"+").replace(/_/g,"/"));return{data:{s:t?t.split("|").map(function(x){var i=x.lastIndexOf(":");return[x.slice(0,i),parseInt(x.slice(i+1),10)]}):[]}}}catch(e){return{data:{s:[]}}}}
 var MAXS=5000,MAXN=12;
 var CRE=["backseat","chaos","emote","hype","lore","lurker","scream","sleepy","snack"];
 var $=function(i){return document.getElementById(i)};
@@ -87,14 +89,15 @@ function clean(d){var s=d&&d.data&&Array.isArray(d.data.s)?d.data.s:[];return s.
 function qualifies(list,sc){return sc>0&&sc<=MAXS&&(list.length<10||sc>list[list.length-1][1])}
 var cache=null,mine=null;
 function draw(list,msg){["1","2","3"].forEach(function(k){var ol=$("lb"+k);ol.textContent="";list.forEach(function(r){var li=document.createElement("li");var a=document.createElement("span");a.textContent=r[0];var b=document.createElement("span");b.textContent=r[1];li.appendChild(a);li.appendChild(b);if(mine&&r[0]===mine[0]&&r[1]===mine[1])li.className="me";ol.appendChild(li)});$("lbm"+k).textContent=msg||(list.length?"":"No scores yet. Be the first.")})}
-function fetchBoard(){var c=new AbortController();setTimeout(function(){c.abort()},6000);return fetch(API,{signal:c.signal,cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(clean)}
-function loadBoard(cb){if(cache)draw(cache);fetchBoard().then(function(l){cache=l;draw(l);cb&&cb(l)}).catch(function(){draw(cache||[],"Scoreboard is offline right now. Your best streak is saved on this device.");cb&&cb(cache||[])})}
+function fetchBoard(){var c=new AbortController();setTimeout(function(){c.abort()},8000);return fetch(KV+"GetValue/"+KVA+"/"+KVK+"?t="+Date.now(),{signal:c.signal,cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){var v;try{v=JSON.parse(t)}catch(e){v=t}return clean(dec(v))})}
+function putBoard(l){return fetch(KV+"UpdateValue/"+KVA+"/"+KVK+"/"+enc(l),{method:"POST"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){if(t.indexOf("true")<0)throw 0})}
+function loadBoard(cb){if(cache)draw(cache);fetchBoard().then(function(l){cache=l;draw(l);cb&&cb(l)}).catch(function(){draw(cache||[],"Couldn't load the scoreboard. An adblocker, Brave Shields or a VPN may be blocking it, so try turning it off for this site. Your best streak is saved on this device.");cb&&cb(cache||[])})}
 $("nmF").addEventListener("submit",function(e){e.preventDefault();if(submitted)return;var n=$("nm").value.trim().replace(/\s+/g," ");
  if(!nameOk(n)){$("err").textContent="Use 1-12 letters, numbers, spaces, _ or -. Keep it friendly.";return}
  if(score<=0||score>MAXS){$("err").textContent="That score can't be saved.";return}
  submitted=true;$("err").textContent="Saving...";var sc=score;
  fetchBoard().then(function(l){l.push([n,sc]);l.sort(function(a,b){return b[1]-a[1]});l=l.slice(0,10);
-  return fetch(API,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:"kn-whack",data:{s:l}})}).then(function(r){if(!r.ok)throw 0;mine=[n,sc];cache=l;draw(l);closeNm();$("saved").textContent="Saved to the scoreboard as "+n+"!"})})
- .catch(function(){$("err").textContent="Couldn't reach the scoreboard. Your best is still saved here."})});
+  return putBoard(l).then(function(){mine=[n,sc];cache=l;draw(l);closeNm();$("saved").textContent="Saved to the scoreboard as "+n+"!"})})
+ .catch(function(){$("err").textContent="Couldn't reach the scoreboard. If you use an adblocker, Brave Shields or a VPN, turn it off for this site and try again. Your best is still saved here."})});
 loadBoard();requestAnimationFrame(loop);
 })();
