@@ -224,7 +224,7 @@ window.HIDDEN_ENTRIES = [{
     "But the televisions sometimes whisper another possibility: that Static Hollow was always where those thoughts were gathering, waiting for something to finally wake up inside them."
   ],
   "references": [
-    "assets/img/hollow2.webp"
+    "assets/img/hollow.webp"
   ],
   "hidden": true
 }];
