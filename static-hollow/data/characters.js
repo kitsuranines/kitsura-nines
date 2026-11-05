@@ -195,6 +195,7 @@ window.HIDDEN_ENTRIES = [{
     "Among them sit old CRT televisions, half-buried in mud, swallowed by roots, stacked into crooked towers. None are plugged in. All of them are on. Most show only static. Sometimes a face, a room, or a memory flickers beneath it.",
     "And sometimes, something looks back: a thin amber eye, turned vertical.",
     "Amber is the only color the Hollow seems capable of remembering.",
+    "Rarely, snow falls. It drifts down without wind, grey as ash, and settles on the wires and the screens without melting. It falls most often at the outskirts, if you can ever make it that far, where the trees thin out and the static grows quiet. No one is sure whether the Hollow ends there, or only forgets to keep going.",
     "## The Cathedral",
     "Beyond the trees stands the Cathedral. Its distance never holds. At times it seems miles away; at others it looms just past the next line of trees. Its towers vanish into darkness, and stone bridges span impossible gaps, some ending in fog with no destination.",
     "It has no wires and no screens. It looks older than technology itself, a monument to the hope that something could stay untouched by the noise.",
