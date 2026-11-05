@@ -147,7 +147,7 @@ window.CHARACTERS = [
     "id": "lythria",
     "name": "Lythria",
     "fullName": "LYTHRIA",
-    "title": "Exiled Ruler",
+    "title": "The Exiled Ruler",
     "species": "The Bat of Umbra",
     "owner": "",
     "note": "",
