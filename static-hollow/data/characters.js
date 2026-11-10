@@ -182,7 +182,7 @@ window.CHARACTERS = [
     "image": "assets/img/characters/david-of-the-light.webp",
     "intro": "",
     "lore": ["“He will find his way to the light through any darkness.”"],
-    "references": ["assets/img/gallery/david-of-the-light-1.webp"],
+    "references": ["assets/img/gallery/david-of-the-light-2.webp", "assets/img/gallery/david-of-the-light-3.webp", "assets/img/gallery/david-of-the-light-4.webp", "assets/img/gallery/david-of-the-light-5.webp", "assets/img/gallery/david-of-the-light-6.webp", "assets/img/gallery/david-of-the-light-7.webp", "assets/img/gallery/david-of-the-light-8.webp", "assets/img/gallery/david-of-the-light-9.webp"],
     "links": []
   }
 ];
