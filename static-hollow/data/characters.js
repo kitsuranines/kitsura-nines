@@ -182,7 +182,7 @@ window.CHARACTERS = [
     "image": "assets/img/characters/david-of-the-light.webp",
     "intro": "",
     "lore": ["“He will find his way to the light through any darkness.”"],
-    "references": [],
+    "references": ["assets/img/gallery/david-of-the-light-1.webp"],
     "links": []
   }
 ];
