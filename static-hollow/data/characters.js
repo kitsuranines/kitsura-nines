@@ -170,6 +170,20 @@ window.CHARACTERS = [
     "lore": ["Yui Kaminari is a street-racing yakuza within the HuskyKuza, controlling the underground racing scene. Any racer who wants to compete on her turf is expected to pay her a tithe for entry. Refuse to pay, and there’s a good chance your car won’t survive the night."],
     "references": ["assets/img/gallery/yui-kaminari-1.webp"],
     "links": []
+  },
+  {
+    "id": "david-of-the-light",
+    "name": "David Of The Light",
+    "fullName": "DAVID OF THE LIGHT",
+    "title": "The Messenger",
+    "species": "Brown Moth",
+    "owner": "",
+    "note": "",
+    "image": "assets/img/characters/david-of-the-light.webp",
+    "intro": "",
+    "lore": ["“He will find his way to the light through any darkness.”"],
+    "references": [],
+    "links": []
   }
 ];
 // Hidden entries: reachable only by typing character.html?id=..., never listed.
