@@ -176,7 +176,7 @@ window.CHARACTERS = [
     "name": "David Of The Light",
     "fullName": "DAVID OF THE LIGHT",
     "title": "The Messenger",
-    "species": "Brown Moth",
+    "species": "Polyphemus Moth",
     "owner": "",
     "note": "",
     "image": "assets/img/characters/david-of-the-light.webp",
