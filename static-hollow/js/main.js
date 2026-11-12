@@ -22,9 +22,14 @@ if(d){const list=C,id=new URLSearchParams(location.search).get('id'),H=(window.H
  ${(x.lore||[]).filter(Boolean).length?`<section class="panel lore"><h2>LORE</h2>${ps(x.lore)}</section>`:''}
  <section class="panel"><h2>REFERENCE IMAGES</h2><div class="gallery">${(x.references||[]).map(g=>`<img src="${e(g)}" data-full="${e(g)}" alt="${e(x.name)} reference" loading="lazy">`).join('')}${Array.from({length:Math.max(0,3-(x.references||[]).length)},()=>'<div class="slot">Reference slot<br><small>add to data/characters.js</small></div>').join('')}</div></section>
  <nav class="pager"><a class="btn" href="${base+prev.id}">← ${e(prev.name)}</a><span class="pg-mid"><a class="btn" href="index.html">Back to the Hollow</a><a class="btn" href="/">Back to main site</a></span><a class="btn" href="${base+next.id}">${e(next.name)} →</a></nav>`;}
-const lb=document.getElementById('lb');if(lb){const im=lb.querySelector('img'),close=()=>lb.hidden=true;
- document.addEventListener('click',ev=>{const t=ev.target.closest('[data-full]');if(t){im.src=t.dataset.full;im.alt=t.alt;lb.hidden=false;}else if(!lb.hidden&&ev.target!==im)close();});
- document.addEventListener('keydown',ev=>{if(ev.key==='Escape')close();});}
+const lb=document.getElementById('lb');if(lb){const im=lb.querySelector('img'),close=()=>lb.hidden=true;let list=[],idx=0;
+ const nav=document.createElement('div');nav.className='lb-nav';nav.innerHTML='<button class="lb-prev" aria-label="Previous image">&#8249;</button><span class="lb-count"></span><button class="lb-next" aria-label="Next image">&#8250;</button>';lb.appendChild(nav);
+ const cnt=nav.querySelector('.lb-count');
+ const show=i=>{if(!list.length)return;idx=(i+list.length)%list.length;const t=list[idx];im.src=t.dataset.full;im.alt=t.alt;cnt.textContent=(idx+1)+' / '+list.length;nav.hidden=list.length<2;};
+ document.addEventListener('click',ev=>{if(ev.target.closest('.lb-prev')){show(idx-1);return;}if(ev.target.closest('.lb-next')){show(idx+1);return;}
+  const t=ev.target.closest('[data-full]');if(t&&!lb.contains(t)){const g=t.closest('.gallery');list=g?[...g.querySelectorAll('[data-full]')]:[t];lb.hidden=false;show(list.indexOf(t));}else if(!lb.hidden&&ev.target!==im)close();});
+ document.addEventListener('keydown',ev=>{if(lb.hidden)return;if(ev.key==='Escape')close();else if(ev.key==='ArrowRight'){ev.preventDefault();show(idx+1);}else if(ev.key==='ArrowLeft'){ev.preventDefault();show(idx-1);}});
+ let sx=null;lb.addEventListener('touchstart',ev=>{sx=ev.touches[0].clientX;},{passive:true});lb.addEventListener('touchend',ev=>{if(sx===null)return;const dx=ev.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)show(idx+(dx<0?1:-1));});}
 })();
 
 (function(){const cv=document.getElementById('sparks');if(!cv||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
