@@ -43,13 +43,15 @@ function check(name,msg){name=cleanText(name.replace(/\n/g," "),24);msg=cleanTex
 var te=new TextEncoder(),td=new TextDecoder();
 function b64u(bytes){var s="";bytes=new Uint8Array(bytes);for(var i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function ub64(s){s=s.replace(/-/g,"+").replace(/_/g,"/");var b=atob(s+"===".slice((s.length+3)%4)),o=new Uint8Array(b.length);for(var i=0;i<b.length;i++)o[i]=b.charCodeAt(i);return o}
+var Q=[],inF=0;function lf(u,o){return new Promise(function(res,rej){Q.push([u,o,res,rej]);pump()})}
+function pump(){while(inF<3&&Q.length){var j=Q.shift();inF++;fetch(j[0],j[1]).then(j[2],j[3]).then(function(){inF--;pump()})}}
 var SAFE=/^[A-Za-z0-9_~-]{1,200}$/;
-function get(k,n){n=n||0;return get1(k).catch(function(e){if(n<3)return new Promise(function(r){setTimeout(r,400+600*n)}).then(function(){return get(k,n+1)});throw e})}
-function get1(k){return fetch(KV+"GetValue/"+A+"/"+k+"?t="+Date.now()+Math.random().toString(36).slice(2,6),{cache:"no-store"}).then(function(r){return r.text().then(function(t){
+function get(k,n){n=n||0;return get1(k).catch(function(e){if(n<5)return new Promise(function(r){setTimeout(r,300+500*n+Math.random()*400)}).then(function(){return get(k,n+1)});throw e})}
+function get1(k){return lf(KV+"GetValue/"+A+"/"+k+"?t="+Date.now()+Math.random().toString(36).slice(2,6),{cache:"no-store"}).then(function(r){return r.text().then(function(t){
  if(!r.ok){if(t.indexOf("DBNull")>=0)return"";throw new Error("kv "+r.status)}
  var v;try{v=JSON.parse(t)}catch(e){v=t}v=String(v==null?"":v).replace(/^"|"$/g,"");return v=="0"?"":v})})}
 function put(k,v){v=v||"0";if(!SAFE.test(v))return Promise.reject(new Error("bad value"));
- var n=0;return(function go(){return fetch(KV+"UpdateValue/"+A+"/"+k+"/"+v,{method:"POST"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){if(t.indexOf("true")<0)throw 0}).catch(function(){if(++n<3)return new Promise(function(r){setTimeout(r,500*n)}).then(go);throw new Error("Couldn't save. An ad blocker might be in the way.")})})()}
+ var n=0;return(function go(){return lf(KV+"UpdateValue/"+A+"/"+k+"/"+v,{method:"POST"}).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){if(t.indexOf("true")<0)throw 0}).catch(function(){if(++n<6)return new Promise(function(r){setTimeout(r,300+500*n+Math.random()*400)}).then(go);throw new Error("Couldn't save. An ad blocker might be in the way.")})})()}
 function sha(s){return crypto.subtle.digest("SHA-256",te.encode(s)).then(function(h){return b64u(h).slice(0,11)})}
 function newId(){return Date.now().toString(36).padStart(8,"0")+Math.random().toString(36).slice(2,4).padEnd(2,"0")}
 var IDR=/^[0-9a-z]{10}$/;
