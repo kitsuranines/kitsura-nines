@@ -41,8 +41,8 @@ textarea{min-height:120px;resize:vertical}
 .empty{opacity:.75;font-weight:600;text-align:center;padding:1rem}
 #more{display:none;margin:1.6rem auto 0}
 .over{position:relative;background:rgba(11,11,11,.86);background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
-</style></head>
-<body><nav class="nav"><a href="static-hollow/">Ref Sheets / Lore</a><a href="apps.html">Play</a><a href="cameos.html">Cameos</a><a href="index.html#discord">Socials</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a></nav>
+</style><style>.nav a .ldot{display:none}.nav a.live{background:#ff2a00;border-color:#ff2a00;color:#fff;box-shadow:0 0 10px rgba(255,60,0,.85),0 0 22px rgba(255,60,0,.5);animation:lpulse 1.6s ease-in-out infinite}.nav a.live .ldot{display:inline-block;width:.6em;height:.6em;border-radius:50%;background:#fff;margin-right:.45em;vertical-align:.05em;box-shadow:0 0 6px #fff;animation:ldot 1.2s ease-in-out infinite}@keyframes lpulse{0%,100%{box-shadow:0 0 8px rgba(255,60,0,.8),0 0 18px rgba(255,60,0,.4)}50%{box-shadow:0 0 14px rgba(255,90,0,1),0 0 32px rgba(255,60,0,.75)}}@keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.nav a.live,.nav a.live .ldot{animation:none}}</style></head>
+<body><nav class="nav"><a href="index.html#watch" id="watchNav"><span class="ldot" aria-hidden="true"></span><span class="ltxt">Watch Live</span></a><a href="index.html#schedule">Schedule</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#discord">Socials</a><a href="apps.html">Play</a><a href="contact/">Contact</a></nav>
 <main class="over" style="min-height:100vh"><section>
 <div class="top"><img class="mark-neon" src="img/mark.svg?v=4" alt=""><h1 class="title">Guest Book</h1></div>
 <p class="lead">You found the den! 🦊 Leave Nines a little note. Every note gets sniffed by <b>Ash</b> and <b>Flint</b> first, then Nines approves it before it goes up. 🐾</p>
@@ -91,4 +91,4 @@ $("more").onclick=more;
 GB.loadIndexRetry().then(function(r){all=r.list;if(!all.length){box.innerHTML='<p class="empty">No notes yet. Be the first to sign! 🐾</p>';return}box.innerHTML="";return more()}).catch(function(){box.innerHTML='<p class="empty">Couldn\'t load notes right now. Try refreshing.</p>'});
 })();
 </script>
-<script src="js/fx.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
+<script src="js/fx.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script src="js/live.js?v=1" defer></script></body></html>
