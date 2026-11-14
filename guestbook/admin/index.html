@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Guest Book Mod · Kitsura Nines</title><meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#ff6a00">
+<link rel="icon" type="image/svg+xml" href="img/mark.svg?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--o:#ff6a00;--b:#0b0b0b;--w:#f4f1ea}*{box-sizing:border-box;margin:0}
+body{background:var(--b);color:var(--w);font-family:'Exo 2',sans-serif;background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px;min-height:100vh}
+main{max-width:860px;margin:auto;padding:2rem 1.2rem 4rem}
+h1{font-family:'Permanent Marker',cursive;font-weight:400;color:var(--o);font-size:2.2rem;display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem}h1 img{width:56px;filter:drop-shadow(0 0 8px rgba(255,106,0,.8))}
+h2{font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--o);font-size:1rem;margin:2rem 0 .8rem;display:flex;gap:.6rem;align-items:center}
+h2 .c{background:var(--o);color:var(--b);padding:.05rem .5rem;font-size:.85rem}
+.box{border:2px solid var(--o);background:rgba(11,11,11,.9);padding:1.3rem;box-shadow:0 0 18px rgba(255,106,0,.25)}
+label{display:block;font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;color:var(--o);margin-bottom:.4rem}
+input{width:100%;background:#141414;color:var(--w);border:1.5px solid var(--w);padding:.75rem;font:600 1rem 'Exo 2',sans-serif;margin-bottom:1rem}
+input:focus{outline:none;border-color:var(--o)}
+button{font:800 .85rem 'Exo 2',sans-serif;text-transform:uppercase;letter-spacing:.05em;padding:.6rem 1rem;border:0;cursor:pointer;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%)}
+button:disabled{opacity:.45;cursor:wait}
+.ok{background:var(--o);color:var(--b)}.no{background:var(--w);color:var(--b)}.ghost{background:transparent;color:var(--w);border:1.5px solid var(--w);clip-path:none}
+.item{border:1.5px solid rgba(244,241,234,.35);background:#121212;padding:1rem;margin-bottom:.8rem}
+.item .n{font-weight:800;color:var(--o)}.item .d{font-size:.78rem;opacity:.6;margin-left:.5rem}
+.item .m{white-space:pre-wrap;overflow-wrap:anywhere;margin:.5rem 0 .8rem;line-height:1.45}
+.item .acts{display:flex;gap:.5rem;flex-wrap:wrap}
+.flag{display:inline-block;background:#b3261e;color:#fff;font-size:.7rem;font-weight:800;padding:.1rem .45rem;margin-left:.5rem;text-transform:uppercase}
+.empty{opacity:.6;padding:.4rem 0}
+#st{margin-top:.8rem;font-weight:700;min-height:1.2em}.err{color:#ff8a5c}
+.bar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+#app{display:none}
+</style></head>
+<body><main>
+<h1><img src="img/mark.svg?v=4" alt="">Guest Book Mod</h1>
+<div class="box" id="login"><form id="lf" autocomplete="off"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required><button class="ok" type="submit" id="lb">Unlock</button><p id="lm"></p></form></div>
+<div id="app">
+<div class="bar"><button class="ghost" id="rf" type="button">Refresh</button><button class="ghost" id="lo" type="button">Lock</button><a href="guestbook/" target="_blank" rel="noopener" style="color:var(--o);font-weight:800">Open public page ↗</a></div>
+<p id="st"></p>
+<h2>Waiting for approval <span class="c" id="pc">0</span></h2><div id="pend"></div>
+<h2>On the guest book <span class="c" id="ac">0</span></h2><div id="appr"></div>
+</div></main>
+<script src="guestbook/gb.js?v=1"></script>
+<script src="guestbook/admin/admin.js?v=1"></script>
+</body></html>

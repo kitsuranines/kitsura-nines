@@ -1,0 +1,94 @@
+<!doctype html><html lang="en"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Guest Book · Kitsura Nines</title><meta name="description" content="Sign Kitsura Nines' guest book and leave her a little note."><meta property="og:type" content="website"><meta property="og:site_name" content="Kitsura Nines"><meta property="og:title" content="Guest Book · Kitsura Nines"><meta property="og:description" content="Sign Kitsura Nines' guest book and leave her a little note."><meta property="og:url" content="https://kitsuranines.com/guestbook/"><meta property="og:image" content="https://kitsuranines.com/img/og.jpg?v=1"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kitsuranines"><meta name="twitter:image" content="https://kitsuranines.com/img/og.jpg?v=1"><meta name="theme-color" content="#ff6a00"><link rel="canonical" href="https://kitsuranines.com/guestbook/">
+<link rel="icon" type="image/svg+xml" href="img/mark.svg?v=4"><link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Metal+Mania&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fx.css?v=2">
+<style>
+:root{--o:#ff6a00;--b:#0b0b0b;--w:#f4f1ea}*{box-sizing:border-box;margin:0}
+body{background:var(--b);color:var(--w);font-family:'Exo 2',sans-serif;overflow-x:hidden;background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:.5rem;overflow-x:auto;padding:.6rem 1rem;background:rgba(11,11,11,.92);border-bottom:2px solid var(--o);-webkit-overflow-scrolling:touch}
+.nav a{flex:none;text-decoration:none;font-weight:800;font-size:.85rem;text-transform:uppercase;padding:.45rem .8rem;border:1.5px solid var(--w)}.nav a:first-child{background:var(--o);color:var(--b);border-color:var(--o)}
+section{position:relative;padding:3rem 1.2rem;max-width:820px;margin:auto}
+h2{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2.4rem;color:var(--o);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}h2:before{content:"\2715";color:var(--w);font-size:1.4rem}
+footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}footer img{width:48px;display:block;margin:0 auto .6rem}
+.btn{background:var(--w);color:var(--b);text-decoration:none;font-weight:800;padding:.85rem 1.3rem;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);text-transform:uppercase;border:0;font-family:inherit;font-size:1rem}.btn.o{background:var(--o)}.btn:disabled{opacity:.5}
+.back{display:inline-block;margin:1.5rem 0 0;font-weight:800;text-decoration:none;color:var(--o)}
+.top{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
+.top img{width:clamp(64px,14vw,96px)}
+.title{font-family:'Metal Mania',cursive;font-weight:400;font-size:clamp(2.6rem,11vw,5rem);line-height:.95;color:#fff;transform:skewX(-8deg) rotate(-2deg);text-shadow:3px 3px 0 var(--o),-1px -1px 0 #000,0 0 22px rgba(255,106,0,.7)}
+.lead{font-size:1.1rem;font-weight:600;max-width:46ch;margin:1rem 0 2rem}.lead b{color:var(--o)}
+.book{position:relative;border:2px solid var(--o);background:rgba(11,11,11,.88);padding:1.4rem;box-shadow:0 0 22px rgba(255,106,0,.25),8px 8px 0 rgba(255,106,0,.35)}
+.book:before{content:"🐾";position:absolute;top:-.95rem;right:1rem;font-size:1.5rem;transform:rotate(18deg);filter:drop-shadow(0 0 6px rgba(255,106,0,.8))}
+label{display:block;font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;color:var(--o);margin:.2rem 0 .35rem}
+input,textarea{width:100%;background:#141414;color:var(--w);border:1.5px solid var(--w);padding:.75rem .85rem;font:600 1rem 'Exo 2',sans-serif;margin-bottom:1rem;border-radius:0}
+input:focus,textarea:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 2px rgba(255,106,0,.35),0 0 14px rgba(255,106,0,.45)}
+textarea{min-height:120px;resize:vertical}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}.cnt{font-size:.85rem;opacity:.7}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+#msg{margin-top:1rem;font-weight:700;min-height:1.2em}#msg.err{color:#ff8a5c}
+.sent{display:none;text-align:center;padding:1rem .5rem}.sent .big{font-family:'Permanent Marker',cursive;font-size:1.9rem;color:var(--o);margin-bottom:.5rem}.sent p{font-weight:600;margin-bottom:1.2rem}
+.paws{letter-spacing:.6rem;opacity:.55;text-align:center;margin:2.4rem 0 1rem;font-size:1.1rem}
+.notes{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.note{position:relative;background:var(--w);color:var(--b);padding:1.1rem 1.1rem .9rem;box-shadow:5px 5px 0 var(--o);transform:rotate(var(--r,-1deg));word-wrap:break-word;overflow-wrap:anywhere}
+.note:nth-child(3n+2){--r:1.2deg}.note:nth-child(3n){--r:-.4deg}
+.note:after{content:"";position:absolute;top:-9px;left:50%;width:70px;height:18px;margin-left:-35px;background:rgba(255,106,0,.75);transform:rotate(-3deg)}
+.note .m{white-space:pre-wrap;font-weight:600;line-height:1.45;margin-bottom:.8rem}
+.note .n{font-family:'Permanent Marker',cursive;color:#d45400;font-size:1.15rem}
+.note .d{font-size:.75rem;opacity:.6;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.note .pw{position:absolute;right:.6rem;bottom:.5rem;font-size:1rem;opacity:.35}
+.empty{opacity:.75;font-weight:600;text-align:center;padding:1rem}
+#more{display:none;margin:1.6rem auto 0}
+.over{position:relative;background:rgba(11,11,11,.86);background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
+</style></head>
+<body><nav class="nav"><a href="static-hollow/">Ref Sheets / Lore</a><a href="apps.html">Apps</a><a href="cameos.html">Cameos</a><a href="index.html#discord">Socials</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a></nav>
+<main class="over" style="min-height:100vh"><section>
+<div class="top"><img class="mark-neon" src="img/mark.svg?v=4" alt=""><h1 class="title">Guest Book</h1></div>
+<p class="lead">You found the den! 🦊 Leave Nines a little note. Every note gets sniffed by <b>Ash</b> and <b>Flint</b> first, then Nines approves it before it goes up. 🐾</p>
+<div class="book"><form id="f" autocomplete="off" novalidate>
+<label for="gn">Your name</label><input id="gn" maxlength="24" required placeholder="What should Nines call you?">
+<label for="gm">Your note</label><textarea id="gm" maxlength="300" required placeholder="Say hi, share a favourite stream moment, send the cats some love..."></textarea>
+<div class="hp" aria-hidden="true"><label for="gw">Website</label><input id="gw" tabindex="-1" autocomplete="off"></div>
+<div class="row"><span class="cnt" id="cnt">0 / 300</span><button class="btn o" id="go" type="submit">Sign the book 🐾</button></div>
+<p id="msg" role="status"></p></form>
+<div class="sent" id="sent"><div class="big">Sent! 🦊🖤</div><p>Your note went to Nines for approval. Once she gives it the okay, it'll show up below.</p><button class="btn" id="again" type="button">Write another</button></div></div>
+<div class="paws" aria-hidden="true">🐾 🐾 🐾</div>
+<h2>Notes from the den</h2>
+<div class="notes" id="notes"><p class="empty">Loading notes...</p></div>
+<button class="btn o" id="more" type="button">Show more</button>
+<a class="back" href="index.html">&larr; Back home</a></section>
+<footer><img src="img/mark.svg?v=4" alt="">\ DUBIOUS FOX &#10005;</footer></main>
+<script src="guestbook/gb.js?v=1"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},f=$("f"),go=$("go"),msg=$("msg"),gn=$("gn"),gm=$("gm");
+gm.addEventListener("input",function(){$("cnt").textContent=gm.value.length+" / 300"});
+function say(t,err){msg.textContent=t;msg.className=err?"err":""}
+function sent(on){f.style.display=on?"none":"";$("sent").style.display=on?"block":"none"}
+$("again").onclick=function(){gm.value="";$("cnt").textContent="0 / 300";say("");sent(false)};
+function recent(){try{return JSON.parse(localStorage.getItem("kn_gb_s")||"[]").filter(function(t){return Date.now()-t<864e5})}catch(e){return[]}}
+f.addEventListener("submit",function(e){e.preventDefault();
+ if($("gw").value){sent(true);return}
+ var r=recent();if(r.length&&Date.now()-r[r.length-1]<6e4)return say("Easy, speedy fox! Wait a minute before sending another.",1);
+ if(r.length>=3)return say("You've sent 3 notes today. Nines will read them soon! Come back tomorrow. 🖤",1);
+ var c=GB.check(gn.value,gm.value);if(c.err)return say(c.err,1);
+ go.disabled=true;say("Sending...");
+ GB.submit(gn.value,gm.value).then(function(){r.push(Date.now());try{localStorage.setItem("kn_gb_s",JSON.stringify(r))}catch(x){}say("");sent(true)}).catch(function(er){say(er.message||"Couldn't send it. Try again in a bit.",1)}).then(function(){go.disabled=false})});
+var all=[],shown=0,box=$("notes"),PAGE=10;
+function fmt(t){try{return new Date(t).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})}catch(e){return""}}
+function card(d){var a=document.createElement("article");a.className="note";
+ var m=document.createElement("p");m.className="m";m.textContent=d.m;
+ var n=document.createElement("div");n.className="n";n.textContent="— "+d.n;
+ var t=document.createElement("div");t.className="d";t.textContent=fmt(d.t);
+ var p=document.createElement("span");p.className="pw";p.setAttribute("aria-hidden","true");p.textContent="🐾";
+ a.appendChild(m);a.appendChild(n);a.appendChild(t);a.appendChild(p);return a}
+function more(){var b=all.slice(shown,shown+PAGE);shown+=b.length;$("more").disabled=true;
+ return Promise.all(b.map(GB.loadEntry)).then(function(ds){if(box.querySelector(".empty"))box.innerHTML="";ds.forEach(function(d){if(d)box.appendChild(card(d))});
+  if(!box.children.length&&shown>=all.length)box.innerHTML='<p class="empty">No notes yet. Be the first to sign! 🐾</p>';
+  $("more").style.display=shown<all.length?"block":"none";$("more").disabled=false})}
+$("more").onclick=more;
+GB.loadIndexRetry().then(function(r){all=r.list;if(!all.length){box.innerHTML='<p class="empty">No notes yet. Be the first to sign! 🐾</p>';return}box.innerHTML="";return more()}).catch(function(){box.innerHTML='<p class="empty">Couldn\'t load notes right now. Try refreshing.</p>'});
+})();
+</script>
+<script src="js/fx.js?v=1" defer></script><script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body></html>
