@@ -3,6 +3,7 @@
   "use strict";
 
   const W = 1280, H = 720, GROUND = 562;
+  const JUMP_VY = -980, GRAVITY = 1600;
   const STORE = "dodgeWiresBest";
   const PATH = "dodge/img/";
 
@@ -28,7 +29,6 @@
     fogM: "fog-mid.png",
     fogN: "fog-near.png",
     ground: "ground.png",
-    canopy: "canopy.png",
     ri0: "ri0.png",
     ri1: "ri1.png",
     rear: "rear.png",
@@ -41,6 +41,7 @@
   let dist = 0, score = 0, best = 0, speed = 0, time = 0;
   let lastTs = 0, spawnAt = 0, spawnI = 0;
   let duckHeld = false, duckUntil = 0, jumpBuf = 0, coyote = 0;
+  let frozen = false, shotMode = null, shotJumpPending = false;
   let hitFlash = 0, eyeT = 0, eyeOn = false;
 
   const roger = {
@@ -177,7 +178,7 @@
   function tryJump() {
     if (mode !== "play") return;
     if (jumpBuf > 0 && (roger.onGround || coyote > 0)) {
-      roger.vy = -860;
+      roger.vy = JUMP_VY;
       roger.onGround = false;
       roger.ducking = false;
       duckUntil = 0;
@@ -311,7 +312,7 @@
     tryJump();
 
     if (!roger.onGround) {
-      roger.vy += 2400 * dt;
+      roger.vy += GRAVITY * dt;
       roger.y += roger.vy * dt;
       if (roger.y >= GROUND) {
         roger.y = GROUND;
@@ -336,11 +337,13 @@
     for (const o of obstacles) o.x -= vx * dt;
     obstacles = obstacles.filter(o => o.x + (o.w || 40) > -80);
 
-    const rb = rogerBox();
-    for (const o of obstacles) {
-      if (overlaps(rb, obsBox(o))) {
-        gameOver();
-        break;
+    if (!shotMode) {
+      const rb = rogerBox();
+      for (const o of obstacles) {
+        if (overlaps(rb, obsBox(o))) {
+          gameOver();
+          break;
+        }
       }
     }
   }
@@ -616,7 +619,7 @@
     ctx.fillStyle = "#0a0a0c";
     ctx.fillRect(0, 0, W, H);
     // storm sky
-    if (img.sky) ctx.drawImage(img.sky, 0, 0, W, 390);
+    if (img.sky) ctx.drawImage(img.sky, 0, 0, W, 460);
     const g = ctx.createLinearGradient(0, 300, 0, GROUND);
     g.addColorStop(0, "rgba(10,10,12,0)");
     g.addColorStop(0.55, "rgba(10,10,12,0.35)");
@@ -640,7 +643,8 @@
     // tree layers, far to near (far trees sit lower so spires and bridges read above them)
     drawTiled(img.far, dist * 0.07, 248, 270);
     drawTiled(img.fogF, dist * 0.10, 240, 200);
-    drawTiled(img.mid, dist * 0.22, GROUND - 368, 360);
+    // mid/near art is padded so branches run off the top of the frame
+    drawTiled(img.mid, dist * 0.22, -36, 590);
     // hanging decorative wires
     wrapDraw(wiresDeco, 0.28, (w, x) => {
       ctx.save();
@@ -666,7 +670,7 @@
         yb -= hh * 0.86;
       }
     });
-    drawTiled(img.near, dist * 0.55, GROUND - 452, 460);
+    drawTiled(img.near, dist * 0.55, -48, 618);
     drawTiled(img.fogN, dist * 0.42, 400, 150);
 
     // solid foreground path — top edge of the art is the standing line
@@ -682,9 +686,6 @@
 
     // roger
     drawRoger();
-
-    // foreground canopy (art already fades out, no hard bottom edge)
-    drawTiled(img.canopy, dist * 1.15, -18, 230);
 
     // vignette
     const vg = ctx.createRadialGradient(W * 0.5, H * 0.45, 200, W * 0.5, H * 0.5, 820);
@@ -714,7 +715,10 @@
     lastTs = ts;
     if (dt > 0.05) dt = 0.05;
     if (ready) {
-      update(dt);
+      if (!frozen) {
+        update(dt);
+        maybeFreezeShot();
+      }
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
       drawWorld();
@@ -805,14 +809,65 @@
     jump,
     duck: setDuck,
     spawn(type, ahead) { spawnOne(type || "crt", roger.x + (ahead || 260)); },
+    consts() { return { W, H, GROUND, JUMP_VY, GRAVITY }; },
+    freeze() { frozen = true; },
+    placeCrt(x, w, h) { obstacles.push({ type: "crt", x, y: GROUND - h, w, h, eye: true, sway: 0 }); },
+    boostMax() { dist = 40000; time = 120; },
+    get frozen() { return frozen; },
+    get shotMode() { return shotMode; },
     kill: gameOver,
     obstacles() { return obstacles.map(o => Object.assign({ box: obsBox(o) }, o)); },
   };
+
+  // Debug URL param ?shot=run|jump freezes a frame for screenshots. Off unless present.
+  function maybeArmShot() {
+    const q = new URLSearchParams(location.search).get("shot");
+    if (q !== "run" && q !== "jump") return;
+    shotMode = q;
+    const st = document.createElement("style");
+    st.textContent = [
+      ".nav,footer,h2,.lead,.bk{display:none!important}",
+      "body{background:#050506;overflow:hidden;background-image:none}",
+      "section{padding:0;max-width:none}",
+      "#stage{width:100vw;height:100vh;aspect-ratio:auto;border:0;box-shadow:none;margin:0}",
+    ].join("");
+    document.head.appendChild(st);
+    startGame();
+    spawnAt = 1e12;
+    obstacles = [];
+    const tvH = 96, tvW = 108;
+    obstacles.push({ type: "crt", x: 500, y: GROUND - tvH, w: tvW, h: tvH, eye: true, sway: 0 });
+    if (shotMode === "jump") shotJumpPending = true;
+  }
+
+  function maybeFreezeShot() {
+    if (!shotMode || frozen) return;
+    if (shotJumpPending && roger.onGround) {
+      jumpBuf = 0.12;
+      tryJump();
+      shotJumpPending = false;
+      return;
+    }
+    if (shotMode === "run" && roger.onGround && time >= 0.28) {
+      frozen = true;
+      document.documentElement.dataset.shotReady = "1";
+    }
+    if (shotMode === "jump" && !roger.onGround && roger.vy >= 0) {
+      const tv = obstacles.find((o) => o.type === "crt");
+      if (tv) {
+        const rb = rogerBox();
+        tv.x = rb.x + rb.w * 0.5 - tv.w * 0.5;
+      }
+      frozen = true;
+      document.documentElement.dataset.shotReady = "1";
+    }
+  }
 
   loadAll().then(() => {
     ready = true;
     layoutWorld();
     showStart();
+    maybeArmShot();
     requestAnimationFrame(loop);
   }).catch((err) => {
     console.error(err);
