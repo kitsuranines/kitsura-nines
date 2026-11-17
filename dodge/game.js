@@ -39,9 +39,10 @@
   const img = {};
   let ready = false, mode = "start"; // start | play | over
   let dist = 0, score = 0, best = 0, speed = 0, time = 0;
-  let lastTs = 0, spawnAt = 0, spawnI = 0;
+  let lastTs = 0, spawnAt = 0, spawnI = 0, lastSpawnType = null;
   let duckHeld = false, duckUntil = 0, jumpBuf = 0, coyote = 0;
-  let frozen = false, shotMode = null, shotJumpPending = false;
+  let frozen = false, shotMode = null, shotJumpPending = false, simLock = false;
+  const spawnLog = [];
   let hitFlash = 0, eyeT = 0, eyeOn = false;
 
   const roger = {
@@ -123,6 +124,7 @@
     speed = 330;
     spawnAt = 700;
     spawnI = 0;
+    lastSpawnType = null;
     duckHeld = false; duckUntil = 0; jumpBuf = 0; coyote = 0;
     hitFlash = 0;
     roger.x = 210; roger.y = GROUND; roger.vy = 0;
@@ -216,6 +218,32 @@
     return img["rt" + (roger.frame % 6)];
   }
 
+  function obstacleAction(type) {
+    return (type === "wire" || type === "hangcrt") ? "duck" : "jump";
+  }
+
+  function airtime() {
+    return (2 * Math.abs(JUMP_VY)) / GRAVITY;
+  }
+
+  // Speed the player will have when they actually meet a just-spawned obstacle
+  // (it appears at the right edge and takes ~a screen to arrive).
+  function projectedSpeed(pixelsAhead) {
+    const ahead = Math.max(0, pixelsAhead);
+    const t = ahead / Math.max(1, speed || 330);
+    return Math.min(780, 330 + (dist + ahead) * 0.012 + (time + t) * 4);
+  }
+
+  // Left-to-left spacing. Jump travel + landing/reaction buffer, scaled to
+  // the speed at contact. Duck-into-duck can stay tighter (hold/re-duck).
+  function fairGapBetween(typeA, typeB) {
+    const v = projectedSpeed(W);
+    const a = typeA ? obstacleAction(typeA) : "jump";
+    const b = obstacleAction(typeB);
+    if (a === "duck" && b === "duck") return 0.4 * v + 80;
+    return (airtime() + 0.35) * v + 32;
+  }
+
   function spawnPattern() {
     const x = W + 40;
     const tier = speed > 620 ? 2 : speed > 470 ? 1 : 0;
@@ -231,7 +259,6 @@
     if (tier >= 2) bag.push(["wire", "crt"], ["crt", "wire", "crt"], ["hangcrt", "crt"]);
     const pick = bag[spawnI % bag.length];
     spawnI++;
-    // shuffle a little
     const p = pick.slice();
     if (Math.random() < 0.35 && p.length === 1) {
       const alt = ["crt", "wire", "cable", "hangcrt"];
@@ -240,10 +267,17 @@
     let dx = 0;
     p.forEach((type, i) => {
       spawnOne(type, x + dx);
-      dx += type === "crt" && p[i + 1] === "crt" ? 210 : (p[i + 1] ? 310 : 0);
+      if (p[i + 1]) dx += fairGapBetween(type, p[i + 1]);
     });
-    const gap = Math.max(420, 820 - speed * 0.45) + Math.random() * 120;
+    const gap = fairGapBetween(lastSpawnType, p[0]) + Math.random() * 0.08 * Math.max(speed, 330);
+    spawnLog.push({
+      t: time, speed, vProj: projectedSpeed(W), pattern: p.slice(),
+      last: lastSpawnType, gap: gap, intra: dx,
+      fairs: p.map((type, i) => i ? fairGapBetween(p[i - 1], type) : fairGapBetween(lastSpawnType, type)),
+    });
+    if (spawnLog.length > 8000) spawnLog.shift();
     spawnAt = dist + gap + dx;
+    lastSpawnType = p[p.length - 1];
   }
 
   function spawnOne(type, x) {
@@ -312,7 +346,8 @@
     tryJump();
 
     if (!roger.onGround) {
-      roger.vy += GRAVITY * dt;
+      const wantFastFall = (duckHeld || time < duckUntil) && roger.vy >= 0;
+      roger.vy += GRAVITY * (wantFastFall ? 3.2 : 1) * dt;
       roger.y += roger.vy * dt;
       if (roger.y >= GROUND) {
         roger.y = GROUND;
@@ -715,7 +750,7 @@
     lastTs = ts;
     if (dt > 0.05) dt = 0.05;
     if (ready) {
-      if (!frozen) {
+      if (!frozen && !simLock) {
         update(dt);
         maybeFreezeShot();
       }
@@ -817,6 +852,13 @@
     get shotMode() { return shotMode; },
     kill: gameOver,
     obstacles() { return obstacles.map(o => Object.assign({ box: obsBox(o) }, o)); },
+    step(dt) { simLock = true; if (mode === "play") update(dt); },
+    beginSim() { simLock = true; startGame(); },
+    get time() { return time; },
+    get dist() { return dist; },
+    airtime() { return airtime(); },
+    fairGap(a, b) { return fairGapBetween(a || lastSpawnType, b || "crt"); },
+    get spawnLog() { return spawnLog; },
   };
 
   // Debug URL param ?shot=run|jump freezes a frame for screenshots. Off unless present.
