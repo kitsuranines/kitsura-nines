@@ -169,7 +169,7 @@ window.CHARACTERS = [
     "intro": "",
     "lore": ["Yui Kaminari is a street-racing yakuza within the HuskyKuza, controlling the underground racing scene. Any racer who wants to compete on her turf is expected to pay her a tithe for entry. Refuse to pay, and there’s a good chance your car won’t survive the night."],
     "references": ["assets/img/gallery/yui-kaminari-1.webp"],
-    "links": []
+    "links": [{"label": "Yui's Garage", "url": "https://realyuikaminari.github.io/"}]
   },
   {
     "id": "david-of-the-light",
