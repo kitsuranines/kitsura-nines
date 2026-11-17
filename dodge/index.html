@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head><base href="/"><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dodge the Wires · Kitsura Nines</title>
+<meta name="description" content="Roger dashes through the Static Hollow. Jump and duck to dodge hanging wires and CRTs. Play free in your browser on phone or desktop.">
+<link rel="canonical" href="https://kitsuranines.com/dodge/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Kitsura Nines">
+<meta property="og:title" content="Dodge the Wires · Kitsura Nines">
+<meta property="og:description" content="Roger dashes through the Static Hollow. Jump and duck to dodge hanging wires and CRTs.">
+<meta property="og:url" content="https://kitsuranines.com/dodge/">
+<meta property="og:image" content="https://kitsuranines.com/img/app-dodge.webp?v=1">
+<meta property="og:image:width" content="600"><meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@kitsuranines">
+<meta name="twitter:title" content="Dodge the Wires · Kitsura Nines">
+<meta name="twitter:description" content="Roger dashes through the Static Hollow. Jump and duck to dodge hanging wires and CRTs.">
+<meta name="twitter:image" content="https://kitsuranines.com/img/app-dodge.webp?v=1">
+<meta name="theme-color" content="#ff6a00">
+<link rel="icon" type="image/svg+xml" href="img/mark.svg?v=4"><link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;800&family=Metal+Mania&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--o:#ff6a00;--b:#0b0b0b;--w:#f4f1ea}*{box-sizing:border-box;margin:0}
+body{background:var(--b);color:var(--w);font-family:'Exo 2',sans-serif;overflow-x:hidden;background-image:radial-gradient(rgba(255,106,0,.13) 1px,transparent 1.4px);background-size:7px 7px}
+a{color:inherit}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:.5rem;overflow-x:auto;padding:.6rem 1rem;background:rgba(11,11,11,.92);border-bottom:2px solid var(--o);-webkit-overflow-scrolling:touch}
+.nav a{flex:none;text-decoration:none;font-weight:800;font-size:.85rem;text-transform:uppercase;padding:.45rem .8rem;border:1.5px solid var(--w)}.nav a:first-child{background:var(--o);color:var(--b);border-color:var(--o)}
+.btn{background:var(--w);color:var(--b);text-decoration:none;font-weight:800;padding:.85rem 1.3rem;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);text-transform:uppercase;border:0;cursor:pointer;font-family:'Exo 2',sans-serif;font-size:1rem}.btn.o{background:var(--o)}
+section{position:relative;padding:2.4rem 1.2rem 3rem;max-width:1100px;margin:auto}
+h2{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2.4rem;color:var(--o);margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem}h2:before{content:"\2715";color:var(--w);font-size:1.4rem}
+.lead{font-size:1.05rem;line-height:1.55;max-width:62ch;margin-bottom:1.1rem;font-weight:600}.lead b{color:var(--o)}
+.note{margin-top:.8rem;opacity:.7}
+footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}footer img{width:48px;display:block;margin:0 auto .6rem}
+.over>*{position:relative;z-index:2}
+.bk{text-align:center;margin:2.2rem 0 0;position:relative;z-index:2}.bk .btn{display:inline-block;margin:0}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.nav a .ldot{display:none}.nav a.live{background:#ff2a00;border-color:#ff2a00;color:#fff;box-shadow:0 0 10px rgba(255,60,0,.85),0 0 22px rgba(255,60,0,.5);animation:lpulse 1.6s ease-in-out infinite}.nav a.live .ldot{display:inline-block;width:.6em;height:.6em;border-radius:50%;background:#fff;margin-right:.45em;vertical-align:.05em;box-shadow:0 0 6px #fff;animation:ldot 1.2s ease-in-out infinite}@keyframes lpulse{0%,100%{box-shadow:0 0 8px rgba(255,60,0,.8),0 0 18px rgba(255,60,0,.4)}50%{box-shadow:0 0 14px rgba(255,90,0,1),0 0 32px rgba(255,60,0,.75)}}@keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.nav a.live,.nav a.live .ldot{animation:none}}
+#stage{position:relative;width:min(100%,calc(min(620px,100svh - 200px)*16/9));aspect-ratio:16/9;height:auto;margin-inline:auto;background:#050506;border:2px solid var(--o);box-shadow:6px 6px 0 var(--o);overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+#stage canvas{display:block;width:100%;height:100%;object-fit:contain;background:#050506}
+#hud{position:absolute;top:10px;right:12px;z-index:3;font-weight:800;text-align:right;text-shadow:0 2px 0 #000,0 0 10px #000;pointer-events:none;letter-spacing:.04em}
+#hud .sc{font-size:clamp(1.3rem,4vw,2rem);color:#fff;line-height:1}
+#hud .bs{font-size:.85rem;color:var(--o);margin-top:.15rem}
+#overlay{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.2rem;background:linear-gradient(180deg,rgba(5,5,8,.25) 0%,rgba(5,5,8,.45) 100%)}
+#overlay.hidden{display:none}
+#overlay .ttl{font-family:'Metal Mania',cursive;font-weight:400;font-size:clamp(2.2rem,9vw,4.6rem);color:#fff;line-height:.95;letter-spacing:.02em;text-shadow:3px 3px 0 var(--o),-1px -1px 0 #000,0 0 22px rgba(255,106,0,.7);transform:skewX(-6deg) rotate(-1.5deg);margin-bottom:.6rem}
+#overlay .msg{font-weight:600;max-width:36ch;margin:0 auto .4rem;font-size:clamp(.92rem,2.6vw,1.15rem);text-shadow:0 2px 6px #000}
+#overlay .stat{color:var(--o);font-weight:800;margin:.4rem 0 1rem;font-size:1.05rem;text-shadow:0 2px 0 #000}
+#overlay .hint{margin-top:1rem;font-size:.82rem;opacity:.8;font-weight:600}
+#overlay .oshi{margin-top:.7rem;font-size:1.1rem}
+@media(max-width:600px){section{padding:1.2rem .7rem 2rem}h2{font-size:1.7rem;margin-bottom:.35rem}#stage{width:min(100%,calc(min(520px,100svh - 180px)*16/9));box-shadow:4px 4px 0 var(--o)}}
+</style></head>
+<body>
+<nav class="nav"><a href="index.html#watch" id="watchNav"><span class="ldot" aria-hidden="true"></span><span class="ltxt">Watch Live</span></a><a href="index.html#schedule">Schedule</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#discord">Socials</a><a href="apps.html">Play</a><a href="contact/">Contact</a></nav>
+<main class="over">
+<section>
+<h1 class="sr-only">Dodge the Wires</h1>
+<h2>Dodge the Wires</h2>
+<p class="lead">Roger dashes through the <b>Static Hollow</b>. Jump the CRTs. Duck the hanging wires. The Hollow is watching.</p>
+<div id="stage">
+  <canvas id="c" width="1280" height="720" aria-label="Dodge the Wires game"></canvas>
+  <div id="hud" hidden><div class="sc" id="score">0</div><div class="bs" id="best">Best 0</div></div>
+  <div id="overlay">
+    <div class="ttl" id="ovTitle">Dodge the Wires</div>
+    <p class="msg" id="ovMsg">Help Roger run the dead forest. Jump the CRTs. Duck the wires.</p>
+    <p class="stat" id="ovStat" hidden></p>
+    <button class="btn o" id="go" type="button">Start</button>
+    <p class="hint">Space, up, or tap to jump &middot; Down or swipe down to duck</p>
+    <p class="oshi">&#128062;&#129293;</p>
+  </div>
+</div>
+<p class="bk"><a class="btn" href="apps.html">&larr; Back to Play</a></p>
+</section>
+<footer><img src="img/mark.svg?v=4" alt="">\ DUBIOUS FOX &#10005;</footer>
+</main>
+<script src="dodge/game.js"></script>
+<script src="js/embers.js?v=1" defer></script>
+<script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="js/live.js?v=1" defer></script>
+</body></html>
