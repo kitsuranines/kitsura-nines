@@ -44,6 +44,9 @@
   let frozen = false, shotMode = null, shotJumpPending = false, simLock = false;
   const spawnLog = [];
   let hitFlash = 0, eyeT = 0, eyeOn = false;
+  const SPEED_MARKS = [400, 500, 600, 700, 780];
+  let speedMarkI = 0;
+  let wasOnGround = true, wasDucking = false;
 
   const roger = {
     x: 210,
@@ -127,6 +130,8 @@
     lastSpawnType = null;
     duckHeld = false; duckUntil = 0; jumpBuf = 0; coyote = 0;
     hitFlash = 0;
+    speedMarkI = 0;
+    wasOnGround = true; wasDucking = false;
     roger.x = 210; roger.y = GROUND; roger.vy = 0;
     roger.onGround = true; roger.ducking = false;
     roger.frame = 0; roger.anim = 0;
@@ -137,9 +142,12 @@
     resetRun();
     mode = "play";
     overlay.classList.add("hidden");
+    const nmWrap = document.getElementById("nmWrap");
+    if (nmWrap) nmWrap.hidden = true;
     hud.hidden = false;
     scoreEl.textContent = "0";
     bestEl.textContent = "Best " + best;
+    if (window.DodgeAudio) DodgeAudio.unlock();
   }
 
   function gameOver() {
@@ -157,6 +165,8 @@
     goBtn.textContent = "Retry";
     overlay.classList.remove("hidden");
     hud.hidden = false;
+    if (window.DodgeAudio) DodgeAudio.hit();
+    if (window.DodgeBoard) DodgeBoard.onOver(score);
   }
 
   function showStart() {
@@ -167,7 +177,23 @@
     ovStat.hidden = true;
     goBtn.textContent = "Start";
     overlay.classList.remove("hidden");
+    const nmWrap = document.getElementById("nmWrap");
+    if (nmWrap) nmWrap.hidden = true;
     hud.hidden = true;
+  }
+
+  function flashSpeedUp() {
+    const el = document.getElementById("speedUp");
+    if (!el) return;
+    el.hidden = false;
+    el.classList.remove("flash");
+    void el.offsetWidth;
+    el.classList.add("flash");
+    clearTimeout(flashSpeedUp._t);
+    flashSpeedUp._t = setTimeout(() => {
+      el.classList.remove("flash");
+      el.hidden = true;
+    }, 1100);
   }
 
   function jump() {
@@ -186,6 +212,7 @@
       duckUntil = 0;
       jumpBuf = 0;
       coyote = 0;
+      if (window.DodgeAudio) DodgeAudio.jump();
     }
   }
 
@@ -226,12 +253,17 @@
     return (2 * Math.abs(JUMP_VY)) / GRAVITY;
   }
 
+  // Noticeable ramp: 330 → 780 over ~100s of a long run (was ~43s).
+  function speedAt(d, t) {
+    return Math.min(780, 330 + d * 0.005 + t * 1.8);
+  }
+
   // Speed the player will have when they actually meet a just-spawned obstacle
   // (it appears at the right edge and takes ~a screen to arrive).
   function projectedSpeed(pixelsAhead) {
     const ahead = Math.max(0, pixelsAhead);
-    const t = ahead / Math.max(1, speed || 330);
-    return Math.min(780, 330 + (dist + ahead) * 0.012 + (time + t) * 4);
+    const eta = ahead / Math.max(1, speed || 330);
+    return speedAt(dist + ahead, time + eta);
   }
 
   // Left-to-left spacing. Jump travel + landing/reaction buffer, scaled to
@@ -334,7 +366,12 @@
       return;
     }
 
-    speed = Math.min(780, 330 + dist * 0.012 + time * 4);
+    speed = speedAt(dist, time);
+    while (speedMarkI < SPEED_MARKS.length && speed >= SPEED_MARKS[speedMarkI]) {
+      flashSpeedUp();
+      speedMarkI++;
+    }
+    if (window.DodgeAudio) DodgeAudio.setSpeed(speed);
     dist += speed * dt;
     score = Math.floor(dist / 8);
     scoreEl.textContent = String(score);
@@ -360,6 +397,15 @@
       roger.ducking = wantDuck && roger.vy >= 0;
     }
     if (!roger.onGround) coyote -= dt;
+
+    if (roger.onGround && !wasOnGround) {
+      if (window.DodgeAudio) DodgeAudio.land();
+    }
+    if (roger.ducking && !wasDucking) {
+      if (window.DodgeAudio) DodgeAudio.duck();
+    }
+    wasOnGround = roger.onGround;
+    wasDucking = roger.ducking;
 
     if (roger.onGround && !roger.ducking) {
       roger.anim += dt * (speed / 110);
@@ -782,6 +828,7 @@
 
   let tx = 0, ty = 0, tDown = false;
   function touchStart(e) {
+    if (isUiTarget(e.target)) return;
     const t = e.changedTouches ? e.changedTouches[0] : e;
     tx = t.clientX; ty = t.clientY; tDown = true;
     if (e.cancelable) e.preventDefault();
@@ -812,8 +859,12 @@
     if (e.cancelable) e.preventDefault();
   }
 
+  function isUiTarget(el) {
+    return !!(el && el.closest && el.closest("#overlay, .ov, .tools, button, input, a, form, label"));
+  }
+
   stage.addEventListener("pointerdown", (e) => {
-    if (e.target === goBtn) return;
+    if (e.target === goBtn || isUiTarget(e.target)) return;
     if (e.pointerType === "mouse") {
       if (mode !== "play") { startGame(); return; }
       // click upper 60% jumps, lower ducks
@@ -847,7 +898,8 @@
     consts() { return { W, H, GROUND, JUMP_VY, GRAVITY }; },
     freeze() { frozen = true; },
     placeCrt(x, w, h) { obstacles.push({ type: "crt", x, y: GROUND - h, w, h, eye: true, sway: 0 }); },
-    boostMax() { dist = 40000; time = 120; },
+    boostMax() { dist = 80000; time = 200; speed = speedAt(dist, time); },
+    speedAt,
     get frozen() { return frozen; },
     get shotMode() { return shotMode; },
     kill: gameOver,
@@ -859,27 +911,61 @@
     airtime() { return airtime(); },
     fairGap(a, b) { return fairGapBetween(a || lastSpawnType, b || "crt"); },
     get spawnLog() { return spawnLog; },
+    flashSpeedUp,
+    setSpeedMark(i) { speedMarkI = i; },
   };
 
   // Debug URL param ?shot=run|jump freezes a frame for screenshots. Off unless present.
   function maybeArmShot() {
     const q = new URLSearchParams(location.search).get("shot");
-    if (q !== "run" && q !== "jump") return;
+    if (q !== "run" && q !== "jump" && q !== "speed" && q !== "scores") return;
     shotMode = q;
     const st = document.createElement("style");
+    const hideChrome = (q === "scores")
+      ? ".nav,footer,h2,.lead,.bk{display:none!important}"
+      : ".nav,footer,h2,.lead,.bk{display:none!important}";
     st.textContent = [
-      ".nav,footer,h2,.lead,.bk{display:none!important}",
+      hideChrome,
       "body{background:#050506;overflow:hidden;background-image:none}",
-      "section{padding:0;max-width:none}",
-      "#stage{width:100vw;height:100vh;aspect-ratio:auto;border:0;box-shadow:none;margin:0}",
+      "section{padding:.6rem;max-width:none}",
+      q === "scores"
+        ? "#stage{width:min(100vw,820px);margin:1rem auto;aspect-ratio:auto;min-height:100vh;height:auto}#overlay{position:absolute;inset:0;overflow:auto}#overlay ol.lb{max-height:none}"
+        : "#stage{width:min(100vw,1100px);margin:0 auto;aspect-ratio:16/9;box-shadow:6px 6px 0 var(--o)}",
     ].join("");
     document.head.appendChild(st);
     startGame();
+    if (shotMode === "scores") {
+      spawnAt = 1e12;
+      obstacles = [];
+      score = 2100;
+      dist = 2100 * 8;
+      time = 80;
+      speed = speedAt(dist, time);
+      best = Math.max(best, score);
+      if (scoreEl) scoreEl.textContent = String(score);
+      if (bestEl) bestEl.textContent = "Best " + best;
+      gameOver();
+      const wrap = document.getElementById("nmWrap");
+      if (wrap) wrap.hidden = false;
+      const ns = document.getElementById("nmS");
+      if (ns) ns.textContent = String(score);
+      frozen = true;
+      document.documentElement.dataset.shotReady = "1";
+      return;
+    }
     spawnAt = 1e12;
     obstacles = [];
     const tvH = 96, tvW = 108;
     obstacles.push({ type: "crt", x: 500, y: GROUND - tvH, w: tvW, h: tvH, eye: true, sway: 0 });
     if (shotMode === "jump") shotJumpPending = true;
+    if (shotMode === "speed") {
+      // Just past the 500 milestone so SPEED UP can flash and mute is visible.
+      time = 37;
+      dist = 20680;
+      speed = speedAt(dist, time);
+      speedMarkI = 2;
+      flashSpeedUp();
+    }
   }
 
   function maybeFreezeShot() {
@@ -890,7 +976,7 @@
       shotJumpPending = false;
       return;
     }
-    if (shotMode === "run" && roger.onGround && time >= 0.28) {
+    if ((shotMode === "run" || shotMode === "speed") && roger.onGround && time >= (shotMode === "speed" ? 37.15 : 0.28)) {
       frozen = true;
       document.documentElement.dataset.shotReady = "1";
     }

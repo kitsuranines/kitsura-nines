@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><base href="/"><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="en"><head><base href="/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dodge the Wires · Kitsura Nines</title>
 <meta name="description" content="Roger dashes through the Static Hollow. Jump and duck to dodge hanging wires and CRTs. Play free in your browser on phone or desktop.">
 <link rel="canonical" href="https://kitsuranines.com/dodge/">
@@ -45,6 +45,34 @@ footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}foo
 #overlay .hint{margin-top:1rem;font-size:.82rem;opacity:.8;font-weight:600}
 #overlay .oshi{margin-top:.7rem;font-size:1.1rem}
 @media(max-width:600px){section{padding:1.2rem .7rem 2rem}h2{font-size:1.7rem;margin-bottom:.35rem}#stage{width:min(100%,calc(min(520px,100svh - 180px)*16/9));box-shadow:4px 4px 0 var(--o)}}
+
+.tools{display:flex;justify-content:center;gap:.5rem;margin:0 0 .7rem;flex-wrap:wrap}
+.tb{background:var(--b);color:var(--w);border:2px solid var(--w);font:800 .8rem 'Exo 2',sans-serif;text-transform:uppercase;padding:.45rem .8rem;cursor:pointer}
+.tb:hover{border-color:var(--o);color:var(--o)}
+#speedUp{position:absolute;left:50%;top:22%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;font-family:'Metal Mania',cursive;font-size:clamp(2rem,8vw,4.2rem);color:#fff;letter-spacing:.06em;text-shadow:3px 3px 0 var(--o),0 0 18px rgba(255,106,0,.85);white-space:nowrap;opacity:0}
+#speedUp.flash{animation:su 1.05s ease-out}
+@keyframes su{0%{opacity:0;transform:translate(-50%,-50%) scale(.7) rotate(-4deg)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.12) rotate(-2deg)}70%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-1deg)}100%{opacity:0;transform:translate(-50%,-60%) scale(1.05) rotate(0)}}
+#overlay .gh{margin:.8rem 0 .3rem}
+#overlay ol.lb{max-height:22vh;overflow-y:auto;width:min(100%,340px);margin:.3rem auto}
+#nmWrap{width:min(100%,360px);margin:.4rem auto 0;text-align:center}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(5,5,5,.88);display:flex;align-items:center;justify-content:center;padding:1rem;overflow:auto}
+.ov[hidden]{display:none}
+.pn{background:#111;border:3px solid var(--o);box-shadow:8px 8px 0 var(--o);max-width:440px;width:100%;padding:1.3rem 1.2rem;text-align:center;position:relative}
+.pn h3{font-family:'Permanent Marker',cursive;font-weight:400;font-size:2rem;color:#fff;margin-bottom:.4rem}
+.pn p{line-height:1.5;margin:.4rem 0}
+.pn .btns{justify-content:center}
+.pn button.btn{border:0;cursor:pointer;font-family:inherit;font-size:1rem}
+.x{position:absolute;right:.5rem;top:.3rem;background:none;border:0;color:var(--w);font-size:1.6rem;cursor:pointer}
+ol.lb{list-style:none;padding:0;margin:.6rem 0;text-align:left;counter-reset:r}
+ol.lb li{display:flex;gap:.6rem;padding:.35rem .5rem;border-bottom:1px solid rgba(255,255,255,.1);counter-increment:r;font-weight:600}
+ol.lb li:before{content:counter(r)".";color:var(--o);font-weight:800;width:1.8em}
+ol.lb li span:first-child{flex:1;overflow-wrap:anywhere}ol.lb li span:last-child{font-weight:800}
+ol.lb li.me{background:rgba(255,106,0,.18)}
+.lbmsg{opacity:.7;font-size:.9rem}
+.gh{font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--o);margin:1.4rem 0 .6rem;font-size:.95rem}
+.nm{display:flex;gap:.4rem;margin:.6rem 0}.nm input{flex:1;min-width:0;padding:.6rem;font:600 1rem 'Exo 2',sans-serif;background:#000;color:#fff;border:2px solid var(--w)}
+.err{color:#ff7a7a;font-size:.85rem;min-height:1.1em}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.3rem}
 </style></head>
 <body>
 <nav class="nav"><a href="index.html#watch" id="watchNav"><span class="ldot" aria-hidden="true"></span><span class="ltxt">Watch Live</span></a><a href="index.html#schedule">Schedule</a><a href="https://uwumarket.us/collections/kitsura-nines" target="_blank" rel="noopener">Merch</a><a href="index.html#discord">Socials</a><a href="apps.html">Play</a><a href="contact/">Contact</a></nav>
@@ -53,14 +81,28 @@ footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}foo
 <h1 class="sr-only">Dodge the Wires</h1>
 <h2>Dodge the Wires</h2>
 <p class="lead">Roger dashes through the <b>Static Hollow</b>. Jump the CRTs. Duck the hanging wires. The Hollow is watching.</p>
+<div class="tools">
+  <button class="tb" id="sbBtn" type="button">&#9733; Scoreboard</button>
+  <button class="tb" id="mute" type="button" aria-pressed="false">&#128266; Sound on</button>
+</div>
 <div id="stage">
   <canvas id="c" width="1280" height="720" aria-label="Dodge the Wires game"></canvas>
   <div id="hud" hidden><div class="sc" id="score">0</div><div class="bs" id="best">Best 0</div></div>
+  <div id="speedUp" hidden>SPEED UP</div>
   <div id="overlay">
     <div class="ttl" id="ovTitle">Dodge the Wires</div>
     <p class="msg" id="ovMsg">Help Roger run the dead forest. Jump the CRTs. Duck the wires.</p>
     <p class="stat" id="ovStat" hidden></p>
+    <div id="nmWrap" hidden>
+      <p>You scored <b id="nmS">0</b>. Put your name on the scoreboard?</p>
+      <form class="nm" id="nmF"><input id="nm" maxlength="12" placeholder="Your name (12 max)" autocomplete="off" aria-label="Name for the scoreboard"><button class="btn o" type="submit">Save</button></form>
+      <p class="err" id="err" hidden></p>
+      <p class="lbmsg"><button type="button" class="tb" id="nmSkip">Skip</button></p>
+    </div>
     <button class="btn o" id="go" type="button">Start</button>
+    <p class="gh" id="ovBoardTitle">&#9733; Scoreboard</p>
+    <ol class="lb" id="lb1"></ol>
+    <p class="lbmsg" id="lbm1"></p>
     <p class="hint">Space, up, or tap to jump &middot; Down or swipe down to duck</p>
     <p class="oshi">&#128062;&#129293;</p>
   </div>
@@ -69,6 +111,15 @@ footer{text-align:center;padding:2rem 1rem 3rem;opacity:.75;font-size:.85rem}foo
 </section>
 <footer><img src="img/mark.svg?v=4" alt="">\ DUBIOUS FOX &#10005;</footer>
 </main>
+
+<div class="ov" id="nmOv" hidden><div class="pn"><button class="x" id="nmX" type="button" aria-label="Skip, don't save my name">&#10005;</button><h3>Top 10 score!</h3><p>You scored <b id="nmS2">0</b>. Put your name on the scoreboard?</p><p class="lbmsg">Use the form on the game screen, or close this to skip.</p></div></div>
+<div class="ov" id="sb" hidden><div class="pn"><button class="x" id="sbX" type="button" aria-label="Close scoreboard">&#10005;</button><h3>Scoreboard</h3><ol class="lb" id="lb3"></ol><p class="lbmsg" id="lbm3"></p><div class="btns"><button class="btn o" id="sbC" type="button">Close</button></div></div></div>
+<audio id="bgm" loop preload="auto">
+  <source src="dodge/audio/theme.ogg" type="audio/ogg">
+  <source src="dodge/audio/theme.mp3" type="audio/mpeg">
+</audio>
+<script src="dodge/audio.js"></script>
+<script src="dodge/board.js"></script>
 <script src="dodge/game.js"></script>
 <script src="js/embers.js?v=1" defer></script>
 <script data-goatcounter="https://kitsuranines.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
