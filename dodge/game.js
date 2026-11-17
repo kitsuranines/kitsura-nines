@@ -1,4 +1,4 @@
-/* Dodge the Wires — mockup. Roger sprites from Nines Alley. */
+/* Hollow Dodge — mockup. Roger sprites from Nines Alley. */
 (() => {
   "use strict";
 
@@ -44,7 +44,7 @@
   let frozen = false, shotMode = null, shotJumpPending = false, simLock = false;
   const spawnLog = [];
   let hitFlash = 0, eyeT = 0, eyeOn = false;
-  const SPEED_MARKS = [400, 500, 600, 700, 780];
+  const SPEED_MARKS = [420, 520, 620, 720, 820, 920, 1000, 1080];
   let speedMarkI = 0;
   let wasOnGround = true, wasDucking = false;
 
@@ -172,7 +172,7 @@
   function showStart() {
     mode = "start";
     resetRun();
-    ovTitle.textContent = "Dodge the Wires";
+    ovTitle.textContent = "Hollow Dodge";
     ovMsg.textContent = "Help Roger run the dead forest. Jump the CRTs. Duck the wires.";
     ovStat.hidden = true;
     goBtn.textContent = "Start";
@@ -253,9 +253,11 @@
     return (2 * Math.abs(JUMP_VY)) / GRAVITY;
   }
 
-  // Noticeable ramp: 330 → 780 over ~100s of a long run (was ~43s).
+  // Steeper ramp: 330 → 1080 cap in ~90s (was 330 → 780 in ~100s).
+  // Obstacle spacing scales with this via fairGapBetween, so it stays fair.
+  const MAX_SPEED = 1080;
   function speedAt(d, t) {
-    return Math.min(780, 330 + d * 0.005 + t * 1.8);
+    return Math.min(MAX_SPEED, 330 + d * 0.008 + t * 3);
   }
 
   // Speed the player will have when they actually meet a just-spawned obstacle
@@ -278,7 +280,7 @@
 
   function spawnPattern() {
     const x = W + 40;
-    const tier = speed > 620 ? 2 : speed > 470 ? 1 : 0;
+    const tier = speed > 860 ? 3 : speed > 620 ? 2 : speed > 470 ? 1 : 0;
     const bag = [
       ["crt"],
       ["wire"],
@@ -289,6 +291,7 @@
     ];
     if (tier >= 1) bag.push(["crt", "wire"], ["cable", "wire"], ["crt", "crt"]);
     if (tier >= 2) bag.push(["wire", "crt"], ["crt", "wire", "crt"], ["hangcrt", "crt"]);
+    if (tier >= 3) bag.push(["wire", "crt", "wire"], ["crt", "hangcrt", "crt"], ["cable", "crt"]);
     const pick = bag[spawnI % bag.length];
     spawnI++;
     const p = pick.slice();
@@ -898,7 +901,7 @@
     consts() { return { W, H, GROUND, JUMP_VY, GRAVITY }; },
     freeze() { frozen = true; },
     placeCrt(x, w, h) { obstacles.push({ type: "crt", x, y: GROUND - h, w, h, eye: true, sway: 0 }); },
-    boostMax() { dist = 80000; time = 200; speed = speedAt(dist, time); },
+    boostMax() { dist = 120000; time = 300; speed = speedAt(dist, time); },
     speedAt,
     get frozen() { return frozen; },
     get shotMode() { return shotMode; },

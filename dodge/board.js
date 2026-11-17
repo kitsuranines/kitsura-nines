@@ -1,4 +1,4 @@
-/* Global top-10 scoreboard for Dodge the Wires.
+/* Global top-10 scoreboard for Hollow Dodge.
    Same KeyVal backend and name rules as Whack-a-Creature,
    but a SEPARATE key so the two games never share data.
 
@@ -119,22 +119,63 @@ function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$
     });
   }
 
+  // The KeyVal host returns a 503 (with no CORS header) on roughly 1 in 8
+  // requests. Every call is retried, and a failed read never turns into an
+  // empty board that would then be written back over everyone's scores.
+  var loaded = false;      // true once the board has been read successfully
+  var saving = false;
+  var LOAD_ERR = "Couldn't load the scoreboard. An adblocker, Brave Shields or a VPN may be blocking it, so try turning it off for this site.";
+
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function withRetry(fn, tries) {
+    var n = 0;
+    function go() {
+      return fn().catch(function (e) {
+        if (++n >= tries) throw e;
+        return sleep(600 * n + Math.random() * 300).then(go);
+      });
+    }
+    return go();
+  }
+  function timedFetch(url, opts) {
+    var c = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var to = c ? setTimeout(function () { c.abort(); }, 8000) : 0;
+    if (c) opts.signal = c.signal;
+    return fetch(url, opts).then(function (r) { clearTimeout(to); return r; },
+      function (e) { clearTimeout(to); throw e; });
+  }
+
+  // Raw read: resolves with the tidy list, rejects on any network/HTTP error.
+  function fetchBoard() {
+    return withRetry(function () {
+      var url = KV + "GetValue/" + KVA + "/" + boardKey() + "?t=" + Date.now();
+      return timedFetch(url, { cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      }).then(function (t) {
+        var v = t || "";
+        try { v = JSON.parse(v); } catch (e) {}
+        return tidy(dec(String(v == null ? "" : v).replace(/^"|"$/g, "")));
+      });
+    }, 5);
+  }
+
   function getBoard() {
     if (useStub()) {
-      board = STUB.slice();
+      board = tidy(board.length ? board : STUB.slice());
+      loaded = true;
       draw(board);
       return Promise.resolve(board);
     }
-    var url = KV + "GetValue/" + KVA + "/" + boardKey() + "?t=" + Date.now();
-    return fetch(url, { cache: "no-store" }).then(function (r) { return r.text(); })
-      .then(function (t) {
-        t = (t || "").replace(/^"|"$/g, "");
-        board = tidy(dec(t));
-        draw(board);
-        return board;
-      }).catch(function () { draw(board); return board; });
+    return fetchBoard().then(function (l) {
+      board = l; loaded = true; draw(board); return board;
+    }, function () {
+      if (loaded) draw(board); else drawMsg(LOAD_ERR);
+      return board;
+    });
   }
 
+  // Raw write: resolves true only when the server answered "true".
   function putBoard(next) {
     if (useStub()) {
       board = tidy(next);
@@ -142,17 +183,41 @@ function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$
       return Promise.resolve(true);
     }
     // Refuse writes to the live key off the live host, and never touch Whack's key.
-    if (boardKey() === "kwtop") return Promise.resolve(false);
-    if (boardKey() === LIVE_KEY && !isLiveHost()) return Promise.resolve(false);
-    var url = KV + "UpdateValue/" + KVA + "/" + boardKey() + "/" + enc(tidy(next));
-    return fetch(url, { method: "POST", cache: "no-store" }).then(function (r) { return r.ok; })
-      .catch(function () { return false; });
+    if (boardKey() === "kwtop") return Promise.reject(new Error("blocked key"));
+    if (boardKey() === LIVE_KEY && !isLiveHost()) return Promise.reject(new Error("blocked key"));
+    var payload = enc(tidy(next));
+    if (!payload) return Promise.reject(new Error("encode"));
+    return withRetry(function () {
+      var url = KV + "UpdateValue/" + KVA + "/" + boardKey() + "/" + payload;
+      return timedFetch(url, { method: "POST", cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.text();
+      }).then(function (t) {
+        if (String(t).indexOf("true") < 0) throw new Error("not saved");
+        return true;
+      });
+    }, 6);
+  }
+
+  function hasEntry(list, n, s) {
+    var k = n.toLowerCase();
+    return (list || []).some(function (x) { return x.n.toLowerCase() === k && x.s >= s; });
   }
 
   function qualifies(score) {
-    if (!isFinite(score) || score <= 0) return false;
+    if (!isFinite(score) || score <= 0 || score > MAXS) return false;
+    if (!loaded) return true; // unknown board: offer the form, recheck on save
     if (!board || board.length < 10) return true;
     return score > board[board.length - 1].s;
+  }
+
+  function drawMsg(msg) {
+    ["1", "2", "3"].forEach(function (k) {
+      var ol = document.getElementById("lb" + k);
+      if (ol) ol.textContent = "";
+      var m = document.getElementById("lbm" + k);
+      if (m) m.textContent = msg;
+    });
   }
 
   function show(id, on) {
@@ -160,9 +225,22 @@ function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$
     if (el) el.hidden = !on;
   }
 
+  function setErr(msg) {
+    var err = document.getElementById("err");
+    if (!err) return;
+    err.hidden = !msg;
+    err.textContent = msg || "";
+  }
+
   function onOver(score) {
     pendingScore = score | 0;
+    saving = false;
+    setErr("");
+    var wrap0 = document.getElementById("nmWrap");
+    if (wrap0) wrap0.hidden = true;
+    var mine = pendingScore;
     getBoard().then(function () {
+      if (mine !== pendingScore) return; // a newer run already ended
       var q = qualifies(pendingScore);
       var ns = document.getElementById("nmS");
       if (ns) ns.textContent = String(pendingScore);
@@ -177,21 +255,58 @@ function nameOk(n){if(typeof n!=="string"||n.length>12||!/^[A-Za-z0-9 _-]{1,12}$
     });
   }
 
+  function closeForm() {
+    show("nmOv", false);
+    var wrap = document.getElementById("nmWrap");
+    if (wrap) wrap.hidden = true;
+    var inp = document.getElementById("nm");
+    if (inp) inp.value = "";
+  }
+
   function submitName(raw) {
+    if (saving) return;
     var n = String(raw || "").trim().replace(/\s+/g, " ");
-    var err = document.getElementById("err");
     if (!nameOk(n)) {
-      if (err) { err.hidden = false; err.textContent = "Use 1–12 letters, numbers, spaces, _ or -. Keep it friendly."; }
+      setErr("Use 1–12 letters, numbers, spaces, _ or -. Keep it friendly.");
       return;
     }
-    if (err) { err.hidden = true; err.textContent = ""; }
-    var next = board.concat([{ n: n, s: pendingScore }]);
-    putBoard(next).then(function () { return getBoard(); }).then(function () {
-      show("nmOv", false);
-      var wrap = document.getElementById("nmWrap");
-      if (wrap) wrap.hidden = true;
-      var inp = document.getElementById("nm");
-      if (inp) inp.value = "";
+    var sc = pendingScore;
+    if (!(sc > 0 && sc <= MAXS)) { setErr("That score can't be saved."); return; }
+    saving = true;
+    setErr("Saving...");
+    var FAIL = "Couldn't reach the scoreboard. If you use an adblocker, Brave Shields or a VPN, turn it off for this site and press Save again.";
+    // Always merge into a FRESH copy of the board. If it can't be read, stop:
+    // writing a guess would wipe other players' scores.
+    (useStub() ? Promise.resolve(board) : fetchBoard()).then(function (fresh) {
+      board = fresh; loaded = true;
+      var next = tidy(fresh.concat([{ n: n, s: sc }]));
+      if (!hasEntry(next, n, sc)) {
+        draw(next);
+        saving = false;
+        setErr("So close! The top 10 moved past " + sc + " while you were typing.");
+        return;
+      }
+      return putBoard(next).then(function () {
+        // Read back to confirm the write really landed.
+        return useStub() ? next : fetchBoard().catch(function () { return next; });
+      }).then(function (after) {
+        if (!hasEntry(after, n, sc)) {
+          // Someone else wrote at the same moment; merge once more.
+          var again = tidy(after.concat([{ n: n, s: sc }]));
+          return putBoard(again).then(function () { return again; });
+        }
+        return after;
+      }).then(function (final) {
+        board = final; draw(board);
+        saving = false;
+        setErr("");
+        closeForm();
+        var st = document.getElementById("ovStat");
+        if (st) { st.hidden = false; st.textContent = st.textContent.replace(/\s+·\s+Saved.*$/, "") + "   ·   Saved as " + n + "!"; }
+      });
+    }).catch(function () {
+      saving = false;
+      setErr(FAIL);
     });
   }
 

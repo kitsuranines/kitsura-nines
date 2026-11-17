@@ -1,4 +1,4 @@
-/* Original WebAudio SFX + looping BGM for Dodge the Wires.
+/* Original WebAudio SFX + looping BGM for Hollow Dodge.
    Music file (theme.ogg / theme.mp3) was synthesized for this game;
    no third-party or copyrighted samples. */
 (function (w) {
@@ -160,7 +160,7 @@
   }
 
   function setSpeed(spd) {
-    var t = Math.max(0, Math.min(1, (spd - 330) / 450));
+    var t = Math.max(0, Math.min(1, (spd - 330) / 750));
     musicRate = 1 + 0.18 * t;
     var el = document.getElementById("bgm");
     if (el && startedMusic && !muted) {
