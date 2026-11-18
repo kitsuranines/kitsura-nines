@@ -2,7 +2,7 @@ const ANSWERS=["yes", "no", "nuh uh dummy", "i guess so, dingus", "probably.... 
 const BLOCKED=atob("cG9ybix3aG9yZSxzbHV0LG5pZ2dlcixmYWdnb3Q=").split(",");
 const RX=[/n+[\W_]*[i1!|yl]+[\W_]*g[\W_]*g+[\W_]*(?:[e3]+[\W_]*r+|[a4@]+[\W_]*h?|u+[\W_]*h|r+|[e3]+[\W_]*r?[sz])/i,/(?:^|[^a-z])(?:f|ph)+[\W_]*[a4@]+[\W_]*g+(?:[\W_]*[o0e3i1!u]+[\W_]*t+)?[\W_]*[sz]*(?![a-z])/i,/(?:^|[^a-z])[s5$]+[\W_]*[e3]+[\W_]*x+(?:y|ual|ually|ting|ted|es|ier)?(?![a-z])/i];
 function isBlocked(t){const r=t.toLowerCase(),n=r.replace(/[0@]/g,"o").replace(/[1!|]/g,"i").replace(/3/g,"e").replace(/4/g,"a").replace(/[5$]/g,"s").replace(/[^a-z]/g,"");return BLOCKED.some(w=>n.includes(w))||RX.some(x=>x.test(r))}
-const F=n=>`frames/${n}.png`,P=["1_idle","2_think_a","3_think_b","4_shake_a","5_shake_b","6_reveal"];
+const F=n=>`frames/${n}.webp`,P=["1_idle","2_think_a","3_think_b","4_shake_a","5_shake_b","6_reveal"];
 P.forEach(n=>{new Image().src=F(n)});
 const p=new URLSearchParams(location.search);
 if(p.has("transparent"))document.body.classList.add("transparent");
